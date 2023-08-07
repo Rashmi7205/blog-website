@@ -1,0 +1,33 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body{
+  width: 100%;
+  height: auto;
+  background-image:url('./Components/images/background.jpg') ;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.col{
+  flex-direction: column;
+}
+.row {
+  flex-direction: row;
+}
+.btn{
+  height: 30px;
+  border: none;
+  background-color: #ec6e14;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 600;
+}
