@@ -1,6 +1,7 @@
 import {Schema,model}  from "mongoose";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
 const userSchema = new Schema({
     name:{
@@ -25,7 +26,7 @@ const userSchema = new Schema({
     description:{
         type:String
     },
-    SocialLinks:{
+    socialLinks:{
         whatsapp:String,
         linkedin:String,
         instagram:String,
@@ -34,8 +35,14 @@ const userSchema = new Schema({
     totalFollwer:{
         type:Number
     },
-    TotlalLikes:{
+    totlalLikes:{
         type:Number
+    },
+    forgotPasswordToken:{
+        type:String
+    },
+    forgotPasswordExipyDate:{
+        type:Date
     }
 },{timestamps:true});
 
@@ -47,6 +54,20 @@ userSchema.pre('save',async function(next){
 })
 
 userSchema.methods={
+    generatePasswordResetToken:async function(){
+        const resetToken = crypto.randomBytes(20).toString('hex');
+
+        this.forgotPasswordToken = crypto
+                .createHash('sha256')
+                .update(resetToken)
+                .digest('hex');
+            
+        this.forgotPasswordExpiaryDate = Date.now()+60*60*60*1000; /// 60 min from now
+
+
+        return resetToken;
+
+    },
     genertateJWTToken : async function(){
         return await jwt.sign({
             id:this._id,
