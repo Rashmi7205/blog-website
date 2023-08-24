@@ -1,15 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins&display=swap');
 *{
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container-fluid{
   padding: 0;
 }
 body{
   width: 100%;
   height: auto;
-  background-image:url('./Components/images/background.jpg') ;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: #fff;
 }
 
 .flex{
@@ -21,13 +27,18 @@ body{
   flex-direction: column;
 }
 .row {
-  flex-direction: row;
+  flex-direction: row;  
 }
 .btn{
-  height: 30px;
+  height: 40px;
   border: none;
-  background-color: #ec6e14;
+  background-color: #001C30;
   color: #fff;
   font-size: 1.1em;
   font-weight: 600;
+  text-transform: capitalize;
+}
+.btn:hover{
+  color: #001C30;
+  background-color: #fff;
 }

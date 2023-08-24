@@ -9,8 +9,8 @@ import sendEmail from "../utils/sendmail.js";
 
 
 const cookieOption = {
-    maxAge:24*60*60*7*1000, ///7 days
-    httpOnly:true
+    maxAge:7*24*60*60*1000, ///7 days
+    httpOnly:true,
 }
 
 const register = async (req,res,next)=>{
@@ -46,7 +46,8 @@ const register = async (req,res,next)=>{
                 linkedin:"#",
                 instagram:"#",
                 facebook:"#",
-            }
+            },
+            blogs:[]
         });
 
         await user.save();
@@ -129,14 +130,12 @@ const login = async (req,res,next)=>{
         const token = await user.genertateJWTToken();
 
         res.cookie("token",token,cookieOption);
-        
         user.password=undefined;
         res.status(200).json({
             success:true,
             message:"Logged in Successfully",
             user
         })
-
     } catch (error) {
         return next(new AppError(error.message,400));
     }
@@ -190,7 +189,6 @@ const updateUser = async(req,res,next)=>{
         ///Updating the profile picture
         if(req.file){
             await cloudinary.v2.uploader.destroy(user.profilePic.public_id);
-            console.log(req.file.path);
             const result = await cloudinary.v2.uploader.upload(req.file.path,{
                 folder:'blog',
                 width:250,
@@ -354,6 +352,18 @@ const deleteUser = async(req,res,next)=>{
     }
 }
 
+const logout = async(req,res,next)=>{
+    try {
+        res.cookie('token',null);
+        res.status(200).json({
+            success:true,
+            message:"Logout Successfully",
+        })
+    } catch (error) {
+        return next(new AppError("Invalid Request",500));
+    }
+}
+
 export {
     register,
     login,
@@ -361,5 +371,6 @@ export {
     updateUser,
     changePassword,
     resetPassword,
-    deleteUser
+    deleteUser,
+    logout
 }

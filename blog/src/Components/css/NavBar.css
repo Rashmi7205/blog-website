@@ -4,13 +4,24 @@ body, ul {
     padding: 0;
   }
   
+  .link{
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    display: block;
+  }
+ .nav-profile-img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+ }
   /* NavBar styling */
   .navbar {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color:transparent;
     color: white;
     padding: 10px 20px;
   }
@@ -18,6 +29,7 @@ body, ul {
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    color:#fff;
   }
   
   .menu {
@@ -41,17 +53,22 @@ body, ul {
   .hamburger .line {
     width: 30px;
     height: 3px;
-    background-color: white;
+    background-color:#FE0000;
     margin: 3px 0;
   }
 
   .menu-item{
-    width: 80%;
+    width: 30%;
     height: 100%;
+    margin: auto 0;
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+  .menu-item li{
+    display: block;
+    transition: all 0.2s ease;
   }
   /* Media query for responsiveness */
   @media (max-width: 768px) {
@@ -61,7 +78,7 @@ body, ul {
       top: 60px;
       left: 0;
       width: 100%;
-      background-color: #333;
+      background-color:transparent;
       text-align: center;
       transform: scaleY(0);
       transform-origin: top;
@@ -78,5 +95,19 @@ body, ul {
     .hamburger {
       display: block;
     }
+    .small-menu{
+      width: 100%;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+  li:hover{
+    padding:8px;
+    border-radius: 15px;
+    background-color: #ffffff73;
+    color: black;
   }
   

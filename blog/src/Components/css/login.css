@@ -1,7 +1,9 @@
 
-span{
+a{
     text-decoration: underline;
     cursor: pointer;
+    color: #000000;
+    display: unset;
 }
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 310px) { 
@@ -133,12 +135,14 @@ span{
 @media (min-width: 900px) {
     .login-page{
         width:900px;
-        height: 650px;
-        margin-top: 20px;
+        height: 560px;
+        margin-top: 50px;
         background-color: #fff;
         display: flex;
         flex-direction: row;
         box-shadow: 5px 5px 30px #000000;
+        border-radius: 30px;
+        overflow: hidden;
     }
     .login-form{
         width:50%;
@@ -172,12 +176,12 @@ span{
         width: 100%;
         height: 30px;
         border: none;
-        border-bottom:  2px solid #000000;
-        border-radius: 5px;
+        background-color: aliceblue;
+        border-radius: 10px;
         color: #030303;
         font-weight: 600;
         outline: none;
-        font-size:0.85em;
+        font-size:0.8em;
     }
     
     .login-page-image{

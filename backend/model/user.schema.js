@@ -38,6 +38,8 @@ const userSchema = new Schema({
     totlalLikes:{
         type:Number
     },
+    blogs:Array
+    ,
     forgotPasswordToken:{
         type:String
     },
