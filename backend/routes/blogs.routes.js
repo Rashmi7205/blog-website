@@ -1,6 +1,8 @@
 import { Router  } from "express";
 import isLoggedIn from "../middleware/user.auth.js";
-import {getBlogs,createBlogs,updateBlogs,deleteBlogs,getBlogById} from '../controller/blogs.controller.js';
+import {getBlogs,createBlogs,updateBlogs,deleteBlogs,getBlogById,
+postComment,postLike,
+} from '../controller/blogs.controller.js';
 import multer from "multer";
 import upload from "../middleware/multer.middleware.js";
 
@@ -9,8 +11,9 @@ const router = Router();
 router.get('/getblogs',getBlogs)
         .get('/getBlogs/:id',getBlogById);
 router.post('/createblog',isLoggedIn,upload.single('image'),createBlogs);
-router.put('/updateblog/:id',isLoggedIn,updateBlogs);
+router.put('/updateblog/:id',isLoggedIn,upload.single('image'),updateBlogs);
 router.delete('/deleteblog/:id',isLoggedIn,deleteBlogs);
-
+router.post('/post/comment/:id',isLoggedIn,postComment)
+        .post('/post/like/:id',isLoggedIn,postLike);
 
 export default router;

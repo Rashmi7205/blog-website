@@ -26,6 +26,7 @@ const getBlogById = async (req,res,next)=>{
         if(!id){
             return next(new AppError('Blog Id is required',400));
         } 
+      
         const blog = await Blogs.findById(id);
         if(!blog) {
             return next(new AppError("Blog Post Doesnot exist",400));
@@ -123,11 +124,94 @@ const deleteBlogs = async (req,res,next)=>{
     }
 }
 
+
+
+const postComment = async (req,res,next)=>{
+    try {
+        const {email} = req.user;
+        const {id} = req.params;
+        const {newComment} = req.body;
+        if(!email || !id){
+            return next(new AppError('Unauthenticated User',503));
+        }
+        const user = await User.findOne({email});
+        if(!user){
+            return next(new AppError('User Not regitser',400));
+        }
+        const blog = await Blogs.findById(id);
+    
+        const commentObj = {
+            id:user._id,
+            name:user.name,
+            profilePic:user.profilePic.secure_url,
+            comment:newComment,
+        }
+        
+        blog.comments.push(commentObj);
+
+        await blog.save();
+
+        res.status(200).json({
+            succsess:true,
+            message:"Commend Added Succsessfully",
+            blog,
+        });
+    } catch (error) {
+            return next(new AppError(error.message,400));
+    }
+}
+
+const postLike = async (req,res,next)=>{
+    try {
+        const { email } = req.user;
+        const { id } = req.params;
+        if (!email || !id) {
+            return next(new AppError('Unauthenticated User', 503));
+        }
+    
+        const user = await User.findOne({ email });
+        if (!user) {
+            return next(new AppError('User Not registered', 400));
+        }
+    
+        const blog = await Blogs.findById(id);
+    
+        const likedIndex = blog.likedBy.indexOf(user.id);
+    
+        if (likedIndex !== -1) {
+            // User's ID is found in the likedBy array, remove it
+            blog.likedBy.splice(likedIndex, 1);
+    
+            await blog.save();
+            return res.status(200).json({
+                success: true,
+                message: "Unliked Successfully",
+                blog,
+            });
+        } else {
+            // User's ID is not found in the likedBy array, add it
+            blog.likedBy.push(user.id);
+    
+            await blog.save();
+            return res.status(200).json({
+                success: true,
+                message: "Liked Successfully",
+                blog
+            });
+        }
+    } catch (error) {
+        return next(new AppError(error.message, 400));
+    }
+}
+
+
+
 export {
     getBlogs,
     createBlogs,
     updateBlogs,
     deleteBlogs,
     getBlogById,
-
+    postComment,
+    postLike,
 }

@@ -17,7 +17,8 @@ const userSchema = new Schema({
     },
     password:{
         type:String,
-        required:[true,'password is Required']
+        required:[true,'password is Required'],
+        select:false,
     },
     profilePic:{
         public_id:String,
@@ -38,8 +39,10 @@ const userSchema = new Schema({
     totlalLikes:{
         type:Number
     },
-    blogs:Array
-    ,
+    
+    follwers:Array,
+    followings:Array,
+    blogs:Array,
     forgotPasswordToken:{
         type:String
     },

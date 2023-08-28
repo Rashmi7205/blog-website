@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState } from "react"
 import axios from "axios";
 import {ToastContainer,toast} from 'react-toastify';
@@ -29,6 +30,7 @@ function BlogCardList() {
 
   return (
     <>
+        <h1 className="text-black text-4xl font-bold capitalize text-left m-4 ">Recent Posts</h1>
         {
             blogList.length
             ?blogList.map((blog)=><Blogcard data={blog}/>)

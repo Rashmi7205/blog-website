@@ -142,6 +142,30 @@ const login = async (req,res,next)=>{
 }
 
 const getUser = async (req,res,next)=>{
+    try {
+            // get the user id from the url param
+        const {id} = req.params;
+        
+        // find the user in db
+        const user = await User.findById(id);
+        if(!user){
+            return next(new AppError("User doesnot exist",400));
+        }
+
+        // return the user data
+        res.status(200).json({
+            success:true,
+            message:"User data fetch succsessfully",
+            admin:false,
+            user,
+        })
+
+    } catch (error) {
+        return next(new AppError(error.message,400));
+    }
+}
+
+const getProfile = async (req,res,next)=>{
         try{
             if(!req.user){
                 return next(new AppError("Authentication Failed",400));
@@ -159,6 +183,7 @@ const getUser = async (req,res,next)=>{
             res.status(200).json({
                 success:true,
                 message:"User Fetched Succsessfully",
+                admin:true,
                 user
             });
 
@@ -363,14 +388,55 @@ const logout = async(req,res,next)=>{
         return next(new AppError("Invalid Request",500));
     }
 }
+const followUser = async (req,res,next)=>{
+    try {
+        //ID of the user to be follwed by the current user
+        const {id} = req.params;
+        
+        // cuurent user id
+        const userId = req.user.id;
+
+        // getting the user from the Db
+        const currentUser = await User.findById(userId);
+        
+        const reqestedUser = await User.findById(id);
+
+        if(!currentUser || ! reqestedUser){
+            return next(new AppError('User Doesnot exist',400));
+        }
+
+        if( currentUser.followings.includes(id)){
+                return  res.status(200).json({
+                    success:true,
+                    message:"Already Follw succsessfull",
+                    id,
+                });
+        }
+        currentUser.followings.push(id);
+        reqestedUser.follwers.push(userId);
+
+        await currentUser.save();
+        await reqestedUser.save();
+        res.status(200).json({
+            success:true,
+            message:"Follwing succsessfull",
+            id,
+        });
+
+    } catch (error) {
+        return next(new AppError("Invalid Request",500));
+    }
+}
 
 export {
     register,
     login,
     getUser,
+    getProfile,
     updateUser,
     changePassword,
     resetPassword,
     deleteUser,
-    logout
+    logout,
+    followUser  
 }

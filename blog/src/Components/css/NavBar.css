@@ -21,7 +21,6 @@ body, ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:transparent;
     color: white;
     padding: 10px 20px;
   }

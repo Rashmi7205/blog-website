@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function Blogcard({data}) {
   return (
 
-    <div className='w-[25rem] h-42 m-2 p-2 border-2 rounded-lg'>
+    <div className='w-[25rem] h-53 m-2 p-2 border-2 rounded-lg hover:shadow-lg'>
             <img src={data.image.secure_url} alt="" 
             className='rounded-lg h-48 w-full'
             />
@@ -19,7 +19,6 @@ function Blogcard({data}) {
             Read
         </button>
         </Link>
-     
     </div>
   )
 }

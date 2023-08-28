@@ -17,7 +17,7 @@ function BlogpostList() {
   return (
     <div className='w-full flex col items-start justify-around'>
         {
-          blogPosts.length?blogPosts.map((blog)=><BlogPostCard blogData={blog}/>)
+          blogPosts.length?blogPosts.map((blog)=><BlogPostCard key={blog._id} blog={blog} />)
           :"Loading Blogs ..."
         }
     </div>
