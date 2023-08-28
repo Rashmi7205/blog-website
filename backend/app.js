@@ -16,12 +16,18 @@ app.use(cors({
     credentials:true
 }));
 
+app.get('/',(req,res)=>{
+    res.send("Hello World");
+})
+
 app.use('/api/v1/user',userRoutes);
 app.use('/api/v1/blog',blogRoutes);
 
 app.all('*',(req,res)=>{
     return res.status(400).send('OOPS!! PAGE NOT FOUND');
-})
+});
+
+
 
 app.use(errorMiddleWare);
 
