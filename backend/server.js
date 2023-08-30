@@ -1,7 +1,7 @@
 import app from "./app.js";
 import { config } from "dotenv";
 import express from "express";
-import connectToDb from "./config/dbConnection.js";
+import connectToDb from "/config/dbConnection.js";
 import cloudinary,{v2} from "cloudinary";
 
 config();
