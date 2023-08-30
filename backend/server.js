@@ -1,8 +1,9 @@
-import app from "./app.js";
 import { config } from "dotenv";
 import express from "express";
-import connectToDb from "/config/dbConnection.js";
 import cloudinary,{v2} from "cloudinary";
+
+import connectToDb from "./config/dbConnection.js";
+import app from "./app.js";
 
 config();
 
