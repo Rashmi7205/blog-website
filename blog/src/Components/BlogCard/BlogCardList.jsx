@@ -5,6 +5,7 @@ import {ToastContainer,toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Blogcard from "./Blogcard";
+import Loader from '../utils/Loader';
 
 
 function BlogCardList() {
@@ -13,7 +14,7 @@ function BlogCardList() {
 
     const downLoadBlogs = async ()=>{
           try {
-            const {data} = await axios.get('http://localhost:5030/api/v1/blog/getblogs');
+            const {data} = await axios.get('https://blog-backend-1-23dz.onrender.com/api/v1/blog/getblogs');
             setBlogList(data.blogs);
           } catch (error) {
               toast.info(error.message,{
@@ -34,7 +35,7 @@ function BlogCardList() {
         {
             blogList.length
             ?blogList.map((blog)=><Blogcard data={blog}/>)
-            :"Loading Blogs "
+            :<Loader/>
         }
     </>
   )

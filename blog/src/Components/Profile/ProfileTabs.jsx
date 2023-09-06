@@ -7,10 +7,10 @@ function ProfileTabs() {
   const types = ["follwers","follwing","blogs"];
 
   return (
-    <div className='w-3/5 h-4/5'>
+    <div className='w-full md:w-3/5 h-4/5'>
         <div className='w-full h-20 flex capitalize'>
               {
-                types.map((type)=><div className='text-red-600  p-2 border-2'
+                types.map((type)=><div className='text-red-600  p-2 w-max border-b-2 border-blue-600'
                 onClick={()=>setType(type)}
                 >{type}</div>)
               }

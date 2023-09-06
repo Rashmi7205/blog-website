@@ -2,6 +2,7 @@ import React,{useEffect,useState,useContext}  from 'react';
 import {UserContext} from '../../App';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Loader from '../utils/Loader';
 
 function FollowingTab() {
   const userContext = useContext(UserContext);
@@ -27,7 +28,7 @@ function FollowingTab() {
     },[]);
 
   return (
-    <div className='w-full'>
+    <div className='w-full flex '>
         {
           follwings.length?
           <ul className='w-full flex flex-col '>
@@ -50,7 +51,7 @@ function FollowingTab() {
                   </li>)
               }
           </ul>
-          :"Loading"
+          :<Loader/>
         }
     </div>
   )

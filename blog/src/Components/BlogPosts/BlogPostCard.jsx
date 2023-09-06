@@ -86,7 +86,7 @@ function BlogPostCard({blog}) {
     }
   }
 
-  async function followUser() {
+async function followUser() {
     try {
         if(!user.userDetails){
             navigate('/login');
@@ -107,9 +107,9 @@ function BlogPostCard({blog}) {
     // if(user.userDetails && user.userDetails.follwings.indexOf(blogData.author._id)!=-1){
     //   console.log("true");
     // }
-    if(user.userDetails.followings.includes(blogData.author._id)){
-      setISFollwing(true);
-    }
+    // if(user.userDetails.followings.includes(blogData.author._id)){
+    //   setISFollwing(true);
+    // }
   },[blogData]);
 
 

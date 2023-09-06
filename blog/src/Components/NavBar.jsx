@@ -45,18 +45,18 @@ function NavBar() {
       <li>
           {
             isLoggedin
-            ?<Link to="/profile" className="link btn">
-              <img className='nav-profile-img' src={usercontext.userDetails.profilePic.secure_url}/>
+            ?<Link to="/profile" className="flex w-full text-white no-underline bg-slate-600 p-2 rounded-lg"  onClick={toggleMenu}>
+              <img className='nav-profile-img mx-2' src={usercontext.userDetails.profilePic.secure_url}/>
               {
                 usercontext.userDetails.name
               }
             </Link>
-            : <Link to="/signup" className="link ">Sign Up</Link>
+            : <Link to="/signup" className="link  text-white "  onClick={toggleMenu}>Sign Up</Link>
           }
          
         </li>
-      <li><Link to="/" className="link">Home</Link></li>
-        <li><Link to="/blog" className="link">Blogs</Link></li>
+      <li><Link to="/" className="link"  onClick={toggleMenu}>Home</Link></li>
+        <li><Link to="/blog" className="link"  onClick={toggleMenu}>Blogs</Link></li>
         <li>
           {
              isLoggedin

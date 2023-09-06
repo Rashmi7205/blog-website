@@ -7,9 +7,13 @@ function BlogpostList() {
     const [blogPosts,setBlogPosts] = useState([]);
 
     const downLoadBlogs = async ()=>{
-            const {data} = await axios.get('http://localhost:5030/api/v1/blog/getblogs');
-            setBlogPosts(data.blogs); 
-          }
+        try {
+          const {data} = await axios.get('https://blog-backend-1-23dz.onrender.com/api/v1/blog/getblogs');
+          setBlogPosts(data.blogs); 
+        } catch (error) {
+          console.log(error.message);
+        }  
+      }
 
     useEffect(()=>{
         downLoadBlogs();

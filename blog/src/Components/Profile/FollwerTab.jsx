@@ -2,6 +2,7 @@ import React,{useContext,useEffect,useState} from 'react';
 import { UserContext} from '../../App';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Loader from '../utils/Loader';
 
 function FollwerTab() {
     const userContext = useContext(UserContext);
@@ -27,7 +28,7 @@ function FollwerTab() {
         getFollwers();
     },[]);
     return (
-    <div className='w-full'>
+    <div className='w-full flex'>
         {
             follwers.length?
             <ul className='w-full flex flex-col '>
@@ -43,14 +44,14 @@ function FollwerTab() {
                         {userData.name} 
                        </div>
                        <Link to={`/view/profile/${userData._id}`}
-                       className='w-1/5 bg-purple-600 text-center capitalize py-2 rounded-lg text-white no-underline text-lg font-bold'
+                       className='w-1/5 bg-purple-600 text-center capitalize py-2 rounded-lg text-white no-underline text-sm md:text-lg font-bold'
                        >
                             View        
                         </Link>
                     </li>)
                 }
             </ul>
-            :"Loading"
+            :<Loader/>
         }
     </div>
   )

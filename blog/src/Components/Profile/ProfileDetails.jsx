@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate,Link } from 'react-router-dom';
+import Loader from '../utils/Loader';
 
 function ProfileDetails({userData,admin}) {
-  // console.log(userData);
-   return (
-    userData
-    ?
-    <div className='w-1/5 h-4/5 flex md:flex-col bg-slate-400 p-2 rounded-xl text-white'>
+
+   return(
+    userData?<>
+     <div className='w-full h-[90vh] md:w-1/5 md:h-4/5 flex flex-col bg-slate-400 p-2 rounded-xl text-white'>
         <img 
         src={userData.profilePic.secure_url} alt="" 
         className='w-[200px] h-[200px] rounded-full'
@@ -18,7 +18,7 @@ function ProfileDetails({userData,admin}) {
           <div className='w-full flex text-center'>
             <div>
               <h2>Total Follwer</h2>
-              <h3>{userData.totalFollwer}</h3>
+              <h3>{userData.follwers.length}</h3>
             </div>
             <div>
             <h2>Liked Posts</h2>
@@ -52,19 +52,28 @@ function ProfileDetails({userData,admin}) {
         {
           admin?<Link to='/update/profile'
           className='w-4/5 h-[40px] bg-slate-500 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
+          
          >
          Update
          </Link>:<></>
         }
         
-        <button
-         className='w-4/5 h-[40px] bg-red-600 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
+        {
+          admin? <button
+          className='w-4/5 h-[40px] bg-red-600 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
+         >  
+          Logout
+         </button>
+         :<button
+         className='w-4/5 h-[40px] bg-purple-600 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
         >  
-            Logout
+            Follow
         </button>
-
-    </div>  :"Loading Details"
-  )
+        }
+    </div> 
+    </>:
+    <Loader/>
+   )
 }
 
 export default ProfileDetails

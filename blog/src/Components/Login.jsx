@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import {Link,useNavigate} from 'react-router-dom';
 import{ API_URL} from './utils/scr.login.js';
-import {UserContext,LoginContext} from '../App.js'
+import {UserContext,LoginContext} from '../App.js';
+import axiosInstance from '../Helpers/Axiosinstance.js';
   
 const  Login = () =>{
 
@@ -33,13 +34,14 @@ const  Login = () =>{
         }
 
         try {
-            const response = await axios.post(`${API_URL}/login`,{
+            const response = await axios.post(`http://localhost:5030/api/v1/user/login`,{
                 email,
                 password
             },{
                 headers:{'Content-Type':'application/json'},
                 withCredentials:true
             });
+        
 
             const authData = await response.data;
             userContext.setUserDetails(authData?.user);
