@@ -39,7 +39,6 @@ const userSchema = new Schema({
     totlalLikes:{
         type:Number
     },
-    
     follwers:Array,
     followings:Array,
     blogs:Array,

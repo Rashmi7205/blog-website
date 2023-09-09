@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 function CreateBlog() {
 
@@ -10,9 +11,11 @@ function CreateBlog() {
         catagory:"",
         image:'#'
     });
+
+    const navigate = useNavigate();
+
     const handleCreate  =async (e)=>{
         e.preventDefault();
-        console.log(blog);
         try {
             const {data} = await axios.post('http://localhost:5030/api/v1/blog/createblog',blog,{
                 headers:{
@@ -20,7 +23,9 @@ function CreateBlog() {
                 },
                 withCredentials:true,
             })
-            console.log(data);
+            if(data?.succsess){
+                navigate(`/readblog/${data.blog._id}`);
+            }
         } catch (error) {
             
         }
@@ -60,8 +65,8 @@ function CreateBlog() {
         </div>
         <div>
             <h2>Upload image</h2>
-            <input type="file" accept='.jpg' 
-             onChange={(e)=>setBlog({...blog,image:e.target.value})}
+            <input type="file" accept='.jpg, .png, .jpeg' 
+             onChange={(e)=>setBlog({...blog,image:e.target.files[0]})}
             />
         </div>
         <button className='w-4/5 h-[40px] bg-purple-600 text-white font-semibold rounded-lg '

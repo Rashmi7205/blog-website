@@ -35,6 +35,7 @@ const register = async (req,res,next)=>{
             name,
             email,
             password,
+            description:"",
             profilePic:{
                 public_id:"#",
                 secure_url:"https://res.cloudinary.com/dkkaj165g/image/upload/v1691595963/blog/pngtree-business-people-avatar-icon-user-profile-free-vector-png-image_1527664_zflele.jpg",

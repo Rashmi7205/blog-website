@@ -48,8 +48,7 @@ const createBlogs = async (req,res,next)=>{
         const {title,description,content,catagory} = req.body;
         const {id} = req.user;
         const user = await User.findById(id);
-        user.password=undefined;
-
+      
         if(!title||!content){
             return next(new AppError("Title and Content Must required",400));
         }
@@ -88,7 +87,12 @@ const createBlogs = async (req,res,next)=>{
 
         const relatedPosts = await Blogs.find({catagory:catagory})
         blog.relatedPosts = relatedPosts;
+        
         await blog.save();
+
+        /// adding it to the user blog
+        user.blogs.push(blog.id);
+        await user.save();
 
         res.status(200).json({
             succsess:true,
@@ -103,6 +107,7 @@ const createBlogs = async (req,res,next)=>{
 }
 const updateBlogs = async (req,res,next)=>{
             const {id} = req.params;
+
 }
 const deleteBlogs = async (req,res,next)=>{
     try {
@@ -110,21 +115,36 @@ const deleteBlogs = async (req,res,next)=>{
         if(!id){
             return next(new AppError("blog Id is required",400));
         }
-        const blog = await Blogs.findByIdAndDelete(id);
-        if(!blog){
-            return next(new AppError("Blog Does not exist",400));
+
+        const user = await User.findById(req.user.id);
+        if(!user){
+            return next(new AppError("User doesnot exist",400));
         }
-        res.status(200).json({
-            succsess:true,
-            message:"Blog Deleted Sucessfully",
-        })
-        
+        if(user.blogs.includes(id)){
+            const blog = await Blogs.findByIdAndDelete(id);
+            if(!blog){
+                 return next(new AppError("Blog Does not exist",400));
+            }
+            user.blogs.splice(user.blogs.indexOf(id),1);
+            await user.save();
+
+           return res.status(200).json({
+                succsess:true,
+                message:"Blog Deleted Sucessfully",
+            })
+            
+        }
+        else{
+            return res.status(200).json({
+                succsess:false,
+                message:"unauthorized accsess",
+            })
+        }
+       
     } catch (error) {
           return next(new AppError(error.message,400));
     }
 }
-
-
 
 const postComment = async (req,res,next)=>{
     try {
@@ -214,4 +234,5 @@ export {
     getBlogById,
     postComment,
     postLike,
+    
 }

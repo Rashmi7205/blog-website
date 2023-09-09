@@ -26,7 +26,7 @@ function CustomRoutes() {
     {/* Blog Routes */}
     <Route  path='/blog' element={<Blog />}/>
     <Route  path='/readblog/:id' element={<BlogDetails/>}/>
-    <Route  path='createblog' element={<CreateBlog/>}/>
+    <Route  path='blog/create' element={<CreateBlog/>}/>
 
   </Routes>
   );

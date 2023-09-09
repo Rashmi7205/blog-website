@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/NavBar.css";
 import { LoginContext,UserContext } from "../App";
 import UserLogout from "./utils/UserLogout";
+import logo from '../Components/images/logo-no-background.png'
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +16,11 @@ function NavBar() {
 
   return (
     <nav className="navbar ">
-    <div className="text-[#793FDF] text-4xl font-bold tracking-wide">JustWrite</div>
+    <div className="text-[#793FDF] text-4xl font-bold tracking-wide">
+      <img src={logo} alt="logo" 
+      className="w-[120px] h-auto"
+      />
+    </div>
     <ul className="menu-item">
         <li><Link to="/" className="link">Home</Link></li>
         <li><Link to="/blog" className="link">Blogs</Link></li>

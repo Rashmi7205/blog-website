@@ -10,6 +10,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomRoutes from './Customroutes/Routes';
+import Footer from './Components/Footer';
 
 
 
@@ -62,6 +63,7 @@ function App() {
           <div className="App">
             <NavBar />
             <CustomRoutes/>
+            <Footer/>
           </div>
         </LoginContext.Provider>
         </UserContext.Provider>
