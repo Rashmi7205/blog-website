@@ -227,7 +227,7 @@ const updateUser = async(req,res,next)=>{
                 user.profilePic.secure_url=result.secure_url;
 
                   /// Removing the File From the server
-                // fs.rm( `uploads/${req.file.filename}`);
+                fs.rm( `uploads/${req.file.filename}`);
             }
             console.log("Completed")
           

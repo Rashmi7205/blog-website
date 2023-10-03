@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomRoutes from './Customroutes/Routes';
 import Footer from './Components/Footer';
+import Demo from './Components/Demo';
 
 
 

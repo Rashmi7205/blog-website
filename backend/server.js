@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import express from "express";
 import cloudinary,{v2} from "cloudinary";
 
-import connectToDb from "./config/dbConnection.js";
+import connectToDb from "./config/dbconnection.js ";
 import app from "./app.js";
 
 config();
@@ -14,7 +14,7 @@ v2.config({
 });
 
 
-app.listen(process.env.PORT||5030,()=>{
+app.listen(process.env.PORT||5050,()=>{
     connectToDb();
     console.log(`Server is Running at ${process.env.PORT}`)
 })

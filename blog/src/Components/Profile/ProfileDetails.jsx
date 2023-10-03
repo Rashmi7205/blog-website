@@ -3,9 +3,8 @@ import { useNavigate,Link } from 'react-router-dom';
 import Loader from '../utils/Loader';
 
 function ProfileDetails({userData,admin}) {
-
    return(
-    userData?<>
+    userData&&<>
      <div className='w-full h-[90vh] md:w-1/5 md:h-4/5 flex flex-col bg-slate-400 p-2 rounded-xl text-white'>
         <img 
         src={userData.profilePic.secure_url} alt="" 
@@ -28,26 +27,26 @@ function ProfileDetails({userData,admin}) {
         </div>
        
         <div className='w-full flex md:flex-col flex-wrap font-bold '>
-        <Link to={userData.socialLinks.facebook}
+        <a to={userData?.socialLinks?.facebook}
         className='w-4/5 h-[40px] bg-sky-400 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
         >
           Facebook
-        </Link>
-        <Link to={userData.socialLinks.whatsapp}
+        </a>
+        <a to={userData?.socialLinks?.whatsapp}
            className='w-4/5 h-[40px] bg-green-400 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
            >
           Whatsapp
-        </Link>
-        <Link to={userData.socialLinks.linkedin}
+        </a>
+        <a to={userData?.socialLinks?.linkedin}
            className='w-4/5 h-[40px] bg-blue-500 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
         >
          Linkedin
-        </Link>
-        <Link to={userData.socialLinks.instagram}
+        </a>
+        <a to={userData?.socialLinks?.instagram}
            className='w-4/5 h-[40px] bg-red-500 rounded-lg text-white no-underline text-center py-2 hover:shadow-lg my-2'
         >
          instagram
-        </Link>
+        </a>
         </div>
         {
           admin?<Link to='/update/profile'
@@ -71,8 +70,7 @@ function ProfileDetails({userData,admin}) {
         </button>
         }
     </div> 
-    </>:
-    <Loader/>
+    </>
    )
 }
 

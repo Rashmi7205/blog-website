@@ -46,7 +46,7 @@ function Profile() {
   return (
     <div className='w-full h-[100vh] flex flex-wrap items-center justify-center md:flex-row'>
       <ProfileDetails userData={userContext.userDetails} admin={isAdmin}/>
-      <ProfileTabs/>
+      
     </div>
   )
 }
