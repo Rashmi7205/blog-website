@@ -6,7 +6,6 @@ import Register from '../Components/Register';
 import Login from '../Components/Login';
 import Profile from '../Components/Profile';
 import BlogDetails from '../Components/BlogDetails/BlogDetails';
-import GetUser from '../Components/Profile/GetUser';
 import UpdateProfile from '../Components/Profile/UpdateProfile';
 import CreateBlog from '../Components/CreateBlog/CreateBlog';
 
@@ -20,7 +19,6 @@ function CustomRoutes() {
     
     {/* Profile Routes */}
     <Route  path='/profile' element={<Profile />}/>
-    <Route  path='/view/profile/:id' element={<GetUser/>}/>
     <Route path='/update/profile' element={<UpdateProfile/>}/>
 
     {/* Blog Routes */}

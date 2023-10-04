@@ -5,13 +5,12 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import NavBar from './Components/NavBar';
 
-import { API_URL } from './Components/utils/scr.login';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import CustomRoutes from './Customroutes/Routes';
 import Footer from './Components/Footer';
 import Demo from './Components/Demo';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserData } from './Redux/Slices/authSlice';
+import { toast } from 'react-toastify';
 
 
 
@@ -24,35 +23,19 @@ export const UserContext = React.createContext(null);
 
 function App() {
 
-  const [isLoggedin, setIsLoggedIn] = useState(false);
+  const [isLoggedin, setIsLoggedIn] = useState(useSelector((state)=>state?.auth?.isLoggedin));
   const [userDetails,setUserDetails] = useState(null);
   
+  const dispatch = useDispatch();
   useEffect(()=>{
 
     const fetchData = async()=>{
-      try {
-        const response = await axios.get(`${API_URL}/profile`,{
-          withCredentials:true,
-        });
-        const {user} = response.data;
-
-        if(!user){
-          toast.info("Login for More details",{
-            position:toast.POSITION.TOP_CENTER,
-            autoClose:3000,
-          });
-        }
-        setUserDetails(user);
-        setIsLoggedIn(true);
-      } catch (error) {
-        toast.info(error.message,{
-          position:toast.POSITION.TOP_CENTER,
-          autoClose:3000,
-        });
-      }
-        
+      const data = await dispatch(getUserData());
+      setUserDetails(data.payload);
+      setIsLoggedIn(true);
     }
     fetchData();
+    
   },[])
   
   return (
@@ -60,7 +43,6 @@ function App() {
       <Router>
         <UserContext.Provider value={{userDetails,setUserDetails}}>
         <LoginContext.Provider value={{isLoggedin, setIsLoggedIn }}>
-         
           <div className="App">
             <NavBar />
             <CustomRoutes/>

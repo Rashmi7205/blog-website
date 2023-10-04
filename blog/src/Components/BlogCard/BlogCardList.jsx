@@ -7,26 +7,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import Blogcard from "./Blogcard";
 import Loader from '../utils/Loader';
 
+import { useDispatch } from 'react-redux';
+import { getAllBlog } from '../../Redux/Slices/blogSlice';
+
 
 function BlogCardList() {
 
     const [blogList,setBlogList] = useState([]);
 
     const downLoadBlogs = async ()=>{
-          try {
-            const {data} = await axios.get('https://blog-backend-1-23dz.onrender.com/api/v1/blog/getblogs');
-            setBlogList(data.blogs);
-          } catch (error) {
-              toast.info(error.message,{
-                position:toast.POSITION.TOP_LEFT,
-                autoClose:3000,
-              })
-          }
-            
+      const data = await dispatch(getAllBlog());
+      setBlogList(data?.payload);        
     } 
+
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         downLoadBlogs();
+        
     },[]);
 
   return (

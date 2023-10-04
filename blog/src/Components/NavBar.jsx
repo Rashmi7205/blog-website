@@ -4,11 +4,13 @@ import "./css/NavBar.css";
 import { LoginContext,UserContext } from "../App";
 import UserLogout from "./utils/UserLogout";
 import logo from '../Components/images/logo-no-background.png'
+import { useSelector } from "react-redux";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isLoggedin, setIsLoggedIn} = useContext(LoginContext);
-  const usercontext = useContext(UserContext);  
+  const isLoggedin = useSelector((state)=>(state.auth?.isLoggedIn));
+  const userData = useSelector((state)=>state?.auth?.userData);  
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,9 +37,9 @@ function NavBar() {
           {
             isLoggedin
             ?<Link to="/profile" className="w-44 flex capitalize bg-sky-600 p-2 rounded-lg text-white font-bold text-xl">
-              <img className='nav-profile-img' src={usercontext.userDetails.profilePic.secure_url}/>
+              <img className='nav-profile-img' src={userData?.profilePic?.secure_url}/>
               {
-                usercontext.userDetails.name
+               userData?.name
               }
             </Link>
             : <Link to="/signup" className="link text-white bg-slate-700 p-3 rounded-lg">Sign Up</Link>
@@ -51,9 +53,9 @@ function NavBar() {
           {
             isLoggedin
             ?<Link to="/profile" className="flex w-full text-white no-underline bg-slate-600 p-2 rounded-lg"  onClick={toggleMenu}>
-              <img className='nav-profile-img mx-2' src={usercontext.userDetails.profilePic.secure_url}/>
+              <img className='nav-profile-img mx-2' src={userData?.profilePic?.secure_url}/>
               {
-                usercontext.userDetails.name
+               userData?.name
               }
             </Link>
             : <Link to="/signup" className="link  text-white "  onClick={toggleMenu}>Sign Up</Link>
