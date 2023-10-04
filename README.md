@@ -95,8 +95,8 @@ blog-website/
 |-- README.md
 |-- ...
 ```
-
-controllers: Controllers handling business logic.
+<pre style="color:red">
+  controllers: Controllers handling business logic.
 postController.js: Controller for managing blog posts.
 userController.js: Controller for managing users.
 models: Database models.
@@ -108,4 +108,6 @@ userRoutes.js: Routes for users.
 app.js: Express application setup.
 config.js: Configuration file (e.g., database connection).
 server.js: Main server file.
+</pre>
+
 
