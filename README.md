@@ -47,6 +47,7 @@ blog-website/
 
 
 ## Backend Folder Structure
+```
 blog-website/
 |-- backend/
 |   |-- node_modules/
@@ -93,6 +94,7 @@ blog-website/
 |-- package.json
 |-- README.md
 |-- ...
+```
 
 controllers: Controllers handling business logic.
 postController.js: Controller for managing blog posts.
