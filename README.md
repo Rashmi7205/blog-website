@@ -7,6 +7,7 @@ Welcome to the Blog Website repository! This project is a simple blog website de
 The project is organized with the following folder structure:
 
 ## Frontend Folder Structure
+```
 blog-website/
 |-- public/
 |   |-- index.html
@@ -42,7 +43,7 @@ blog-website/
 |-- README.md
 |-- ...
 
-
+```
 
 
 ## Backend Folder Structure
