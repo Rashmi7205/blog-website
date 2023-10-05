@@ -60,7 +60,7 @@ function Home() {
       {/* Hero section Starts Here */}
       <div className="w-[100%] p-10 flex col items-center justify-around">
           {/* Catagory Section Goes Here */}
-          <div className="w-inherit ">
+          <div className="w-inherit hidden md:block">
             <h1 
             className="text-black text-4xl font-bold capitalize text-center m-4"
             >Explore our Catagory</h1>

@@ -5,6 +5,7 @@ import UserTabs from "./Profile/UserTabs";
 import { useSelector,useDispatch } from "react-redux";
 import { logout } from "../Redux/Slices/authSlice";
 import Popup from "./Popup";
+import ShareButton from "./ShareButton";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -105,6 +106,7 @@ function Profile() {
         </div>
       )}  
     </div>
+   
   );
 }
 
