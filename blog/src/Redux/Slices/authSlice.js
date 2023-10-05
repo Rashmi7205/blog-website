@@ -81,6 +81,18 @@ export const updateAccount = createAsyncThunk('/auth/update',async (userData)=>{
 
 //get account by id
 export const getUserById = createAsyncThunk('/auth/userbyid',async ()=>{
+  
+});
+
+export const likeOnPost = createAsyncThunk('/user/likedpost',async ()=>{
+
+});
+
+export const followUser = createAsyncThunk('/user/followuser',async ()=>{
+
+});
+
+export const commentOnPost = createAsyncThunk('/user/commentonpost',async ()=>{
 
 });
 

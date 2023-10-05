@@ -1,9 +1,10 @@
 import {Link,useNavigate} from 'react-router-dom';
+import parse from 'html-react-parser';
+import Dompurify from 'dompurify';
 import { useContext, useEffect, useState } from 'react';
 import {ToastContainer,toast} from 'react-toastify';
 import axios from 'axios';
 import React from 'react';
-import BlogDetails from '../BlogDetails/BlogDetails';
 import CommentList from '../Comments/CommentList';
 import { UserContext } from '../../App';
 
@@ -138,9 +139,10 @@ async function followUser() {
             blogData.title
            }
         </div>
-        <div className="title w-full text-justify h-3/5 md:text-lg overflow-hidden text-sm my-3">
+        <div className="title w-full text-justify h-3/5 md:text-lg overflow-hidden text-sm my-3"
+        >
           {
-              blogData.content.slice(0,400)+"...."
+              parse(Dompurify.sanitize(blogData.content.slice(0,400)+"...."))
           }
         </div>
         <div className="title w-full text-justify flex ">

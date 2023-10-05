@@ -1,9 +1,23 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import {useSelector} from 'react-redux';
 
 function UserBlogs() {
 
   const userData = useSelector((state)=>state.auth?.userData);
+  const allBlogs = useSelector((state)=>state.blogData?.blogs)
+  const [userBlogs,setUserBlog] = useState([]);
+
+  const getBlogs = ()=>{
+      if(userData && allBlogs.length){
+          const blogs = allBlogs.filter((blog)=>userData.blogs.includes(blog._id))
+          setUserBlog(blogs);
+      }
+  }
+
+  useEffect(()=>{
+    getBlogs();
+  },[]);
+  
 
   return (
     <div className='w-full flex flex-col items-center justify-start gap-12'>

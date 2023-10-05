@@ -1,4 +1,6 @@
 import { useState,useEffect } from 'react';
+import DOMpurify from 'dompurify';
+import parse from 'html-react-parser'
 import React from 'react';
 import {Link,useNavigate,useParams} from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
@@ -69,7 +71,9 @@ function BlogDetails() {
         <p className='w-full text-xl text-[#5063f6] my-2'>{blogDetails.description}</p>
         {/* Content Section */}
         <p className='w-full text-lg font-medium tracking-wide my-5 '>
-           {blogDetails.content}
+           {
+              parse(DOMpurify.sanitize(blogDetails?.content))
+           }
         </p>
       </div>
       {/* Main Content Section Ens Here */}

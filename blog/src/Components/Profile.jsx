@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import UserTabs from "./Profile/UserTabs";
 import { useSelector,useDispatch } from "react-redux";
 import { logout } from "../Redux/Slices/authSlice";
+import Popup from "./Popup";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -102,7 +103,7 @@ function Profile() {
             </div>
           </div>
         </div>
-      )}
+      )}  
     </div>
   );
 }

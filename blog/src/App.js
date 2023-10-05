@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 import NavBar from './Components/NavBar';
 
@@ -11,6 +11,7 @@ import Demo from './Components/Demo';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserData } from './Redux/Slices/authSlice';
 import { toast } from 'react-toastify';
+import CreatePostButton from './Components/CreatePostButton';
 
 
 
@@ -23,6 +24,8 @@ export const UserContext = React.createContext(null);
 
 function App() {
 
+  const navigate = useNavigate();
+
   const [isLoggedin, setIsLoggedIn] = useState(useSelector((state)=>state?.auth?.isLoggedin));
   const [userDetails,setUserDetails] = useState(null);
   
@@ -33,6 +36,7 @@ function App() {
       const data = await dispatch(getUserData());
       setUserDetails(data.payload);
       setIsLoggedIn(true);
+      navigate('/blog');
     }
     fetchData();
     
@@ -40,17 +44,18 @@ function App() {
   
   return (
     <>
-      <Router>
         <UserContext.Provider value={{userDetails,setUserDetails}}>
         <LoginContext.Provider value={{isLoggedin, setIsLoggedIn }}>
-          <div className="App">
+          <div className="App relative">
             <NavBar />
             <CustomRoutes/>
+            {
+              isLoggedin && <CreatePostButton/>
+            }
             <Footer/>
           </div>
         </LoginContext.Provider>
         </UserContext.Provider>
-      </Router>
     </>
   );
 }

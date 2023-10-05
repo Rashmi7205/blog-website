@@ -1,81 +1,182 @@
-import React, { useState } from 'react';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import React,{useRef,useState} from 'react';
+import {Editor} from '@tinymce/tinymce-react';
+import { toast } from 'react-toastify';
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import {createPost} from '../../Redux/Slices/blogSlice';
+
 
 function CreateBlog() {
+    const editorRef = useRef(null);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const [blog,setBlog] = useState({
+    const [blogData,setBlogData] = useState({
         title:"",
         description:"",
         content:"",
         catagory:"",
-        image:'#'
+        image:null,
     });
 
-    const navigate = useNavigate();
+    const [imagePreview,setImagePreview] = useState("https://th.bing.com/th/id/OIP.sedusKw9sYxEJgRvUsgmCAHaE8?w=288&h=192&c=7&r=0&o=5&dpr=1.3&pid=1.7");
 
-    const handleCreate  =async (e)=>{
-        e.preventDefault();
-        try {
-            const {data} = await axios.post('http://localhost:5030/api/v1/blog/createblog',blog,{
-                headers:{
-                    'Content-Type': 'multipart/form-data',
-                },
-                withCredentials:true,
-            })
-            if(data?.succsess){
-                navigate(`/readblog/${data.blog._id}`);
-            }
-        } catch (error) {
-            
-        }
+
+
+    const handleInputChange = (e)=>{
+        const {name,value} = e.target;
+        setBlogData({
+            ...blogData,
+            [name]:value,
+        });
     }
-  return (
-    <div className='w-full h-[100vh] flex'>
-        <form   encType='multipart/form-data'
-        className='w-full md:w-1/2 h-full bg-slate-100 rounded-md flex flex-col' 
-        onSubmit={handleCreate}
+
+    const handleImageInput = (e)=>{
+       const image = e.target.files[0];
+       setBlogData(
+        {
+            ...blogData,
+            image,
+        }
+       );
+       setImagePreview(URL.createObjectURL(image));
+    }
+
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        let content=null;
+        if (editorRef.current) {
+        content = editorRef.current.getContent();
+      }
+
+      if(!blogData.title || !content){
+        toast.info("Title and content is mandatory");
+        return;
+        }
+        
+        setBlogData({
+            ...blogData,
+            content,
+        });
+
+        console.log(blogData)
+        
+        const response = await dispatch(createPost(blogData));
+
+        if(response.payload){
+            setBlogData(
+                {
+                    title:"",
+                    description:"",
+                    content:"",
+                    catagory:"",
+                    image:null,
+                }
+            );
+            navigate('/blog');
+        }
+
+
+    };
+    return (
+    <div className='w-full  my-6 flex'>
+        <form
+        onSubmit={handleFormSubmit}
+        encType='multipart/form-data'
+        className='w-4/5 bg-slate-200 flex flex-col items-center justify-around py-8 px-5  rounded-md shadow-md'
         >
-        <div >
-            <h1 className='font-semibold text-4xl text-purple-600'>Crate A Story</h1>
-        </div>
-        <div className='w-4/5'>   
-            <h2 className='text-sm font-semibold w-full'>Title</h2>
-            <input type="text" placeholder='Create title' className='w-full outline-none border-none bg-sky-200 font-semibold rounded-lg'
-            onChange={(e)=>setBlog({...blog,title:e.target.value})}
+        <h1 className='text-3xl font-semibold text-purple-600'>Crate a new Blog </h1>
+        <div className='w-full my-3 flex items-start  flex-col gap-2'>
+            <img src={imagePreview} 
+            alt="your_image"
+            className='w-[4/5] rounded-md h-[400px]'
+            />
+            <h1 className='text-xl font-semibold text-purple-600 cursor-pointer'>Add image</h1>
+            <label htmlFor="image"
+            className='text-2xl text-purple-700 bg-white w-[70px] h-[70px] flex rounded-full'
+            >
+                <i className="fa-regular fa-image"></i>
+            </label>
+            <input 
+            className='hidden'
+            type="file" 
+            name="image" 
+            id="image" 
+            onChange={handleImageInput}
             />
         </div>
-        <div className='w-4/5'>   
-            <h2 className='text-sm font-semibold w-full'>Description</h2>
-            <input type="text" placeholder='Description'  className='w-full outline-none border-none bg-sky-200 font-semibold rounded-lg' 
-             onChange={(e)=>setBlog({...blog,description:e.target.value})}
+        <div className='w-full my-3 flex items-start  flex-col gap-2'>
+            <label htmlFor="title"
+            className='text-xl font-semibold text-purple-600 cursor-pointer'
+            >
+                Title
+            </label>
+            <input type="text" 
+            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
+            id='title'
+            name='title'
+            value={blogData.title}
+            onChange={handleInputChange}
             />
         </div>
-        <div className='w-4/5'>   
-            <h2 className='text-sm font-semibold w-full'>Catagory</h2>
-            <input type="text" placeholder='Catagory'  className='w-full outline-none border-none bg-sky-200 font-semibold rounded-lg'
-            onChange={(e)=>setBlog({...blog,catagory:e.target.value})}
+        <div className='w-full my-3  flex  flex-col gap-2'>
+        <label htmlFor="description"
+            className='text-xl font-semibold text-purple-600 cursor-pointer'
+            >
+                description
+            </label>
+            <input type="text" 
+            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
+            id='description'
+            name='description'
+            value={blogData.description}
+            onChange={handleInputChange}
             />
         </div>
-        <div className='w-4/5'>   
-            <h2 className='text-sm font-semibold w-full'>Content</h2>
-          <textarea className='w-full bg-sky-200 outline-none border-none'
-           onChange={(e)=>setBlog({...blog,content:e.target.value})}
-          ></textarea>
+        <div className='w-full my-3'>
+        <h3 className='text-xl font-semibold text-purple-600'>Content</h3>
+        <Editor
+         onInit={(evt, editor) => editorRef.current = editor}
+         init={{
+           menubar: true,
+           plugins: [
+             'advlist autolink lists link image charmap print preview anchor',
+             'searchreplace visualblocks code fullscreen',
+             'insertdatetime media table paste code help wordcount'
+           ],
+           toolbar: 'undo redo | formatselect | ' +
+           'bold italic backcolor | alignleft aligncenter ' +
+           'alignright alignjustify | bullist numlist outdent indent | ' +
+           'removeformat | help',
+           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:18px }'
+         }}
+       />
         </div>
-        <div>
-            <h2>Upload image</h2>
-            <input type="file" accept='.jpg, .png, .jpeg' 
-             onChange={(e)=>setBlog({...blog,image:e.target.files[0]})}
+        <div className='w-full my-3  flex items-start  flex-col gap-2'>
+        <label htmlFor="catagory"
+            className='text-xl font-semibold text-purple-600 cursor-pointer'
+            >
+                catagory
+            </label>
+            <input type="text" 
+            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
+            id='catagory'
+            name='catagory'
+            value={blogData.catagory}
+            onChange={handleInputChange}
             />
         </div>
-        <button className='w-4/5 h-[40px] bg-purple-600 text-white font-semibold rounded-lg '
+        <button 
         type='submit'
+        className='w-[90%] text-center h-[40px] font-semibold text-white tracking-widest rounded-md  bg-purple-600 hover:bg-purple-800'
         >
-            Create
+            Create 
         </button>
         </form>
-    </div>
+        
+       
+    </div>        
   )
 }
 

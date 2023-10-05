@@ -2,17 +2,15 @@ import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 
 import BlogPostCard from './BlogPostCard';
+import { useDispatch } from 'react-redux';
+import { getAllBlog } from '../../Redux/Slices/blogSlice';
 
 function BlogpostList() {
     const [blogPosts,setBlogPosts] = useState([]);
-
+    const dispatch = useDispatch();
     const downLoadBlogs = async ()=>{
-        try {
-          const {data} = await axios.get('http://localhost:5030/api/v1/blog/getblogs');
-          setBlogPosts(data.blogs); 
-        } catch (error) {
-          console.log(error.message);
-        }  
+      const data = await dispatch(getAllBlog());
+      setBlogPosts(data?.payload); 
       }
 
     useEffect(()=>{
