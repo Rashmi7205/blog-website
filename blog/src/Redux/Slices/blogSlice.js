@@ -6,6 +6,31 @@ const initialState = {
     blogs :[],
 }
 
+
+export const getBlogById = createAsyncThunk('/blog/blogbyid',async (id)=>{
+    try {
+        const response =await axios.get(`http://localhost:5030/api/v1/blog/getblog/${id}`);
+        return response.data;
+} catch (error) {
+    toast.info(error.message,{
+        position:toast.POSITION.TOP_LEFT,
+        autoClose:2000,
+      });
+}
+})
+
+export const getBlogsById = createAsyncThunk('/blog/getblogbyId',async (blogIdList)=>{
+    try {
+            const response = blogIdList.map(async (id)=> await axios.get(`http://localhost:5030/api/v1/blog/getblog/${id}`));
+            return await axios.all(response);
+    } catch (error) {
+        toast.info(error.message,{
+            position:toast.POSITION.TOP_LEFT,
+            autoClose:2000,
+          });
+    }
+});
+
 export const getAllBlog = createAsyncThunk('/blog/getallblogs',async ()=>{
     try {
         const response =  axios.get('http://localhost:5030/api/v1/blog/getblogs');
@@ -44,8 +69,30 @@ export const createPost = createAsyncThunk('/blog/create',async (blogData)=>{
         }
 });
 
-export const updatePost = createAsyncThunk('/blog/create',async ()=>{
+export const updatePost = createAsyncThunk('/blog/create',async ({blogid,blogData})=>{
+    try {
+        console.log(blogid,blogData);
+        const response =  axios.post(`http://localhost:5030/api/v1/blog/updateblog/${blogid}`,blogData,
+        {
+            headers:{
+                'Content-Type': 'multipart/form-data',
+            },
+            withCredentials:true,
+        }
+        );
 
+        toast.promise(response,{
+            pending:"Wait updating post...",
+            error:"Failed to update post",
+            success:"Successfully post updated"
+        });
+
+        const {data} = await response;
+        
+        return data?.updatedBlog;
+    } catch (error) {
+        toast.error(error.message);
+    }
 });
 
 export const deletePost = createAsyncThunk('/blog/create',async ()=>{

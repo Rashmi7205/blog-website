@@ -7,7 +7,7 @@ import User from '../model/user.schema.js';
 
 const getBlogs = async (req,res,next)=>{
     try {
-        const blogs = await Blogs.find({});
+        const blogs = await Blogs.find({}).limit(5);
         res.status(200).json({
             succsess:true,
             message:"All Blogs fetched succsessfully",
@@ -52,7 +52,7 @@ const createBlogs = async (req,res,next)=>{
         if(!title||!content){
             return next(new AppError("Title and Content Must required",400));
         }
-
+        
 
 
         const blog = await Blogs.create({
@@ -106,7 +106,41 @@ const createBlogs = async (req,res,next)=>{
     }
 }
 const updateBlogs = async (req,res,next)=>{
-            const {id} = req.params;
+    try {
+        const { id } = req.params;
+        const { title, description, content, catagory } = req.body;
+    
+        const blog = await Blogs.findById(id);
+    
+        // IF blog does not exist
+        if (!blog) {
+            return next(new AppError("Blog does not exist", 400));
+        }
+    
+        const updatedBlog = await Blogs.findByIdAndUpdate(id, {
+            title,
+            description,
+            content,
+            catagory
+        }, { new: true }); // Adding { new: true } to get the updated document
+    
+        if (!updatedBlog) {
+            return next(new AppError("Failed to update", 400));
+        }
+    
+        res.status(200).json({
+            success: true,
+            message: "Blog updated successfully",
+            updatedBlog
+        });
+    
+    } catch (error) {
+        return next(new AppError(error.message, 400));
+    }
+    
+   
+
+
 
 }
 const deleteBlogs = async (req,res,next)=>{

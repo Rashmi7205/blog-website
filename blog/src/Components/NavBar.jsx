@@ -11,13 +11,12 @@ function NavBar() {
   const isLoggedin = useSelector((state)=>(state.auth?.isLoggedIn));
   const userData = useSelector((state)=>state?.auth?.userData);  
 
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <nav className="navbar ">
+    <nav className="navbar z-50">
     <div className="text-[#793FDF] text-4xl font-bold tracking-wide">
       <img src={logo} alt="logo" 
       className="w-[120px] h-auto"

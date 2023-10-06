@@ -1,15 +1,16 @@
-import React,{useRef,useState} from 'react';
+import React,{useRef,useState,useEffect} from 'react';
 import {Editor} from '@tinymce/tinymce-react';
 import { toast } from 'react-toastify';
 import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {createPost} from '../../Redux/Slices/blogSlice';
+import {useNavigate, useParams} from 'react-router-dom';
+import {createPost, getBlogById, updatePost} from '../../Redux/Slices/blogSlice';
 
 
-function CreateBlog() {
+function UpdateBlog() {
     const editorRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {blogid} = useParams();
 
     const [blogData,setBlogData] = useState({
         title:"",
@@ -18,6 +19,23 @@ function CreateBlog() {
         catagory:"",
         image:null,
     });
+
+    const getCurrentBlog = async ()=>{
+        if(!blogid){
+            return;
+        }
+        const data = await dispatch(getBlogById(blogid));
+        if(data?.payload?.blog){
+            setBlogData({
+                ...blogData,
+                title:data.payload.blog.title,
+                description:data.payload.blog.description,
+                content:data.payload.blog.content,
+                catagory:data.payload.blog.catagory,
+            });
+            setImagePreview(data.payload.blog.image.secure_url);
+        }
+    }
 
     const [imagePreview,setImagePreview] = useState("https://th.bing.com/th/id/OIP.sedusKw9sYxEJgRvUsgmCAHaE8?w=288&h=192&c=7&r=0&o=5&dpr=1.3&pid=1.7");
 
@@ -59,10 +77,11 @@ function CreateBlog() {
             ...blogData,
             content,
         });
-
-        console.log(blogData)
-        
-        const response = await dispatch(createPost(blogData));
+        const updateObj  ={
+            blogid,
+            blogData
+        }
+        const response = await dispatch(updatePost(updateObj));
 
         if(response.payload){
             setBlogData(
@@ -79,14 +98,19 @@ function CreateBlog() {
 
 
     };
+
+    useEffect(()=>{
+        getCurrentBlog();
+    },[]);
+
     return (
-    <div className='w-full  my-6 flex z-30'>
+    <div className='w-full my-6 flex'>
         <form
         onSubmit={handleFormSubmit}
         encType='multipart/form-data'
-        className='md:w-4/5 bg-slate-200 flex flex-col items-center justify-around py-8 md:px-5  rounded-md shadow-md'
+        className='w-4/5 bg-slate-200 flex flex-col items-center justify-around md:py-8 md:px-5  rounded-md shadow-md'
         >
-        <h1 className='text-3xl font-semibold text-purple-600'>Crate a new Blog </h1>
+        <h1 className='text-3xl font-semibold text-purple-600'>Update Blog</h1>
         <div className='w-full my-3 flex items-start  flex-col gap-2'>
             <img src={imagePreview} 
             alt="your_image"
@@ -137,6 +161,7 @@ function CreateBlog() {
         <div className='w-full my-3'>
         <h3 className='text-xl font-semibold text-purple-600'>Content</h3>
         <Editor
+        initialValue={blogData.content}
          onInit={(evt, editor) => editorRef.current = editor}
          init={{
            menubar: true,
@@ -171,7 +196,7 @@ function CreateBlog() {
         type='submit'
         className='w-[90%] text-center h-[40px] font-semibold text-white tracking-widest rounded-md  bg-purple-600 hover:bg-purple-800'
         >
-            Create 
+           Update 
         </button>
         </form>
         
@@ -180,4 +205,4 @@ function CreateBlog() {
   )
 }
 
-export default CreateBlog
+export default UpdateBlog

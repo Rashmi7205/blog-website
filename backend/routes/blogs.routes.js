@@ -9,9 +9,9 @@ import upload from "../middleware/multer.middleware.js";
 const router = Router();
 
 router.get('/getblogs',getBlogs)
-        .get('/getBlogs/:id',getBlogById);
+        .get('/getblog/:id',getBlogById);
 router.post('/createblog',isLoggedIn,upload.single('image'),createBlogs);
-router.put('/updateblog/:id',isLoggedIn,upload.single('image'),updateBlogs);
+router.post('/updateblog/:id',isLoggedIn,upload.single('image'),updateBlogs);
 router.delete('/deleteblog/:id',isLoggedIn,deleteBlogs);
 router.post('/post/comment/:id',isLoggedIn,postComment)
         .post('/post/like/:id',isLoggedIn,postLike);

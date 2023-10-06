@@ -46,7 +46,7 @@ function App() {
     <>
         <UserContext.Provider value={{userDetails,setUserDetails}}>
         <LoginContext.Provider value={{isLoggedin, setIsLoggedIn }}>
-          <div className="App relative">
+          <div className="App relative w-min-full">
             <NavBar />
             <CustomRoutes/>
             {

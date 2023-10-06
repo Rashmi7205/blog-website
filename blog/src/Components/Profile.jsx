@@ -27,7 +27,7 @@ function Profile() {
         <UpdateProfile />
       ) : (
         <div className="w-full h-screen relative">
-          <div className="w-[90%] h-1/5 bg-purple-600 rounded-lg mx-auto p-4">
+          <div className="w-full md:w-[90%] h-1/5 bg-purple-600 rounded-lg mx-auto p-4">
             
             <button 
             className="bg-white px-4 py-1 font-semibold rounded-md shadow-lg"

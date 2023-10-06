@@ -4,30 +4,28 @@ import parse from 'html-react-parser'
 import React from 'react';
 import {Link,useNavigate,useParams} from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+
 import BlogCardList from '../BlogCard/BlogCardList';
+import { useDispatch } from 'react-redux';
+import { getBlogById } from '../../Redux/Slices/blogSlice';
 function BlogDetails() {
 
   const {id} = useParams();
+  const dispatch = useDispatch();
+
   const [blogid,setId] = useState(id);
   const [blogDetails,setBlogDetails] = useState(null);
 
   const downloadBlogDetails = async ()=>{
-    try {
-      const {data} = await axios.get(`http://localhost:5030/api/v1/blog/getblogs/${blogid}`,{
-        withCredentials:true,
-      });
-      setBlogDetails(data.blog);
-    } catch (error) {
-        toast.error(error.message,{
-          position:toast.POSITION.TOP_LEFT,
-          autoClose:3000,
-        })
+      if(!id){
+        toast.error("Error in loading the blogs")
+        return;
+      }
+      const response = await dispatch(getBlogById(id));
+      if(response?.payload){
+        setBlogDetails(response?.payload?.blog);
+      }
     }
-     
-     
-  }
 
   useEffect(()=>{
     downloadBlogDetails();
@@ -62,7 +60,7 @@ function BlogDetails() {
       {/* Author Details Section Ends Here */}
 
       {/* Main content Section */}
-      <div className='w-full  m-2'>
+      <div className='w-full  m-2 px-4'>
         {/* Title of Blog */}
         <h1 className='w-full text-2xl font-bold my-3 '>
           {blogDetails.title}

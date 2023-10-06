@@ -3,8 +3,8 @@ import logo from '../Components/images/logo-no-background.png';
 
 function Footer() {
   return (
-    <footer className='w-full  bg-purple-500 text-white text-center text-lg py-10'>
-    <div className="footer-content w-full flex items-center justify-between">
+    <footer className='w-full  bg-purple-500 text-white text-center text-lg py-10 z-50'>
+    <div className="footer-content w-full flex md:flex-row flex-col items-center justify-between">
       <div className="footer-logo w-2/5 flex flex-col">
         <img src={logo} alt="Company Logo"
         className='w-[150px] md:w-[250px] h-auto'

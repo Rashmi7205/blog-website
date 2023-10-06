@@ -1,13 +1,13 @@
 import React from 'react';
 
-function ShareButton() {
+function ShareButton({title,url}) {
   const handleShare = async () => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: 'Your sharing title',
-          text: 'Your sharing text',
-          url: 'https://your-shareable-url.com',
+          title,
+          text:"See this amazing blog... ",
+          url,
         });
       } else {
         console.log('Web Share API not supported on this browser');
@@ -19,7 +19,7 @@ function ShareButton() {
 
   return (
     <button onClick={handleShare}>
-      Share
+      <i className="fa-solid fa-share"></i>
     </button>
   );
 }

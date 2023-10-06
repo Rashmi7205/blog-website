@@ -1,10 +1,6 @@
 import React from 'react'
 
-function Comments({id,comment,blogId}) {
-
-
-    
-
+function Comments({comment,blogId}) {
 
   return (
     <div className='w-max p-2 overflow-hidden flex flex-col items-start justify-around text-black my-2 text-sm '>
