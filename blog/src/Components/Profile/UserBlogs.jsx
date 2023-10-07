@@ -32,7 +32,10 @@ function UserBlogs() {
   const deleteBlog = async()=>{
     console.log('delete Blog');
     const data = await  dispatch(deletePost(deleteBlogId));
-    console.log(data);
+    if(data.payload)
+    {
+        setUserBlog(userBlogs.filter((ele)=>ele.data.blog._id !== deleteBlogId))
+    }
     setISConfirm(!isConfirm);
     setDeleBlogId(null);
   }
@@ -43,8 +46,6 @@ function UserBlogs() {
     if(isConfirm && deleteBlogId){
       deleteBlog();    
     }
-
-
   },[deleteBlogId,isConfirm]);
   
 
@@ -85,7 +86,9 @@ function UserBlogs() {
               <button onClick={()=>{
                 setPopupOpen(false);
                 setISConfirm(true);
-              }}>Delete</button>
+              }}
+              className='px-3 bg-red-600 text-white font-semibold rounded-md shadow-md'
+              >Delete</button>
               <button 
               className='px-3 border-2  border-black rounded-md'
               onClick={()=>setPopupOpen(!isPopupOpen)}>Close</button>

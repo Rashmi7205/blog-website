@@ -116,7 +116,7 @@ export const deletePost = createAsyncThunk('/blog/delete',async (blogId)=>{
 });
 
 export const readPost = createAsyncThunk('/blog/readPost',async ()=>{
-    
+
 });
 
 
@@ -129,12 +129,12 @@ const blogSlice = createSlice({
         .addCase(getAllBlog.fulfilled,(state,action)=>{
             state.blogs = action.payload;
         })
-        .addCase(deletePost.fulfilled,(state,action)=>{
-            state.blogs = state?.blogs?.filter((blog)=>blog._id!=action?.payload?.blogId);
+        .addCase(deletePost.fulfilled, (state, action) => {
+            state.blogs = state?.blogs?.filter((blog) => action.payload.blogId !== String(blog._id));
         })
         .addCase(createPost.fulfilled,(state,action)=>{
             if(action.payload){
-            state.blogs.push(action.payload?.blog);
+               state.blogs = [...state.blogs,action.payload.blog];
             }
         })
 
