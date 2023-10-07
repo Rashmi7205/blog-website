@@ -9,7 +9,7 @@ const initialState = {
 
 export const getBlogById = createAsyncThunk('/blog/blogbyid',async (id)=>{
     try {
-        const response =await axios.get(`http://localhost:5030/api/v1/blog/getblog/${id}`);
+        const response =await axios.get(`/api/v1/blog/getblog/${id}`);
         return response.data;
 } catch (error) {
     toast.info(error.message,{
@@ -21,7 +21,7 @@ export const getBlogById = createAsyncThunk('/blog/blogbyid',async (id)=>{
 
 export const getBlogsById = createAsyncThunk('/blog/getblogbyId',async (blogIdList)=>{
     try {
-            const response = blogIdList.map(async (id)=> await axios.get(`http://localhost:5030/api/v1/blog/getblog/${id}`));
+            const response = blogIdList.map(async (id)=> await axios.get(`/api/v1/blog/getblog/${id}`));
             return await axios.all(response);
     } catch (error) {
         toast.info(error.message,{
@@ -33,7 +33,7 @@ export const getBlogsById = createAsyncThunk('/blog/getblogbyId',async (blogIdLi
 
 export const getAllBlog = createAsyncThunk('/blog/getallblogs',async ()=>{
     try {
-        const response =  axios.get('http://localhost:5030/api/v1/blog/getblogs');
+        const response =  axios.get('/api/v1/blog/getblogs');
         const data = await response;
         return (data?.data?.blogs);
       } catch (error) {
@@ -46,7 +46,7 @@ export const getAllBlog = createAsyncThunk('/blog/getallblogs',async ()=>{
 
 export const createPost = createAsyncThunk('/blog/create',async (blogData)=>{
         try {
-            const response =  axios.post('http://localhost:5030/api/v1/blog/createblog',blogData,
+            const response =  axios.post('/api/v1/blog/createblog',blogData,
             {
                 headers:{
                     'Content-Type': 'multipart/form-data',
@@ -63,7 +63,7 @@ export const createPost = createAsyncThunk('/blog/create',async (blogData)=>{
 
             const {data} = await response;
             
-            console.log(data);
+           return data;
         } catch (error) {
             toast.error(error.message);
         }
@@ -72,7 +72,7 @@ export const createPost = createAsyncThunk('/blog/create',async (blogData)=>{
 export const updatePost = createAsyncThunk('/blog/create',async ({blogid,blogData})=>{
     try {
         console.log(blogid,blogData);
-        const response =  axios.post(`http://localhost:5030/api/v1/blog/updateblog/${blogid}`,blogData,
+        const response =  axios.post(`/api/v1/blog/updateblog/${blogid}`,blogData,
         {
             headers:{
                 'Content-Type': 'multipart/form-data',
@@ -95,15 +95,28 @@ export const updatePost = createAsyncThunk('/blog/create',async ({blogid,blogDat
     }
 });
 
-export const deletePost = createAsyncThunk('/blog/create',async ()=>{
+export const deletePost = createAsyncThunk('/blog/delete',async (blogId)=>{
     try {
+        const response = axios.delete(`/api/v1/blog/deleteblog/${blogId}`,{
+            withCredentials:true,
+        });
+
+        toast.promise(response,{
+            pending:"Wait deletion in process..",
+            error:"Failed to delete Blog",
+            success:"Successfully blog deleted"
+        });
+
+        const {data} = await response;
+
+        return {...data,blogId};
     } catch (error) {
-        
+        toast.error(error.message);
     }
 });
 
 export const readPost = createAsyncThunk('/blog/readPost',async ()=>{
-
+    
 });
 
 
@@ -116,6 +129,15 @@ const blogSlice = createSlice({
         .addCase(getAllBlog.fulfilled,(state,action)=>{
             state.blogs = action.payload;
         })
+        .addCase(deletePost.fulfilled,(state,action)=>{
+            state.blogs = state?.blogs?.filter((blog)=>blog._id!=action?.payload?.blogId);
+        })
+        .addCase(createPost.fulfilled,(state,action)=>{
+            if(action.payload){
+            state.blogs.push(action.payload?.blog);
+            }
+        })
+
     }
 });
 

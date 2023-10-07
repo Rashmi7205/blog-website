@@ -4,7 +4,7 @@ const Popup = ({data,onclick}) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center">
       <button
         onClick={() => setPopupOpen(true)}
         className="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer"

@@ -60,7 +60,6 @@ function CreateBlog() {
             content,
         });
 
-        console.log(blogData)
         
         const response = await dispatch(createPost(blogData));
 

@@ -10,7 +10,7 @@ const initialState = {
 // getting the user data if the user is logged in 
 export const getUserData = createAsyncThunk('/auth/getuserdata', async () => {
   try {
-    const response = await axios.get(`http://localhost:5030/api/v1/user/profile`, {
+    const response = await axios.get(`/api/v1/user/profile`, {
       withCredentials: true,
     });
     const { user } = response.data;
@@ -33,7 +33,7 @@ export const getUserData = createAsyncThunk('/auth/getuserdata', async () => {
 //register user
 export const register = createAsyncThunk('/auth/register', async (registerData) => {
   try {
-    const response = axios.post('http://localhost:5030/api/v1/user/register', registerData, {
+    const response = axios.post('/api/v1/user/register', registerData, {
       headers: { 'Content-Type': 'multipart/formdata' },
       withCredentials: true,
     });
@@ -62,7 +62,7 @@ export const register = createAsyncThunk('/auth/register', async (registerData) 
 //loggin user
 export const login = createAsyncThunk('/auth/login', async (loginData) => {
   try {
-    const response = axios.post('http://localhost:5030/api/v1/user/register', loginData, {
+    const response = axios.post('/api/v1/user/login', loginData, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
@@ -91,7 +91,7 @@ export const login = createAsyncThunk('/auth/login', async (loginData) => {
 //logout 
 export const logout = createAsyncThunk('/auth/logout', async (loginData) => {
   try {
-    const response = axios.get('http://localhost:5030/api/v1/user/logout', {
+    const response = axios.get('/api/v1/user/logout', {
       withCredentials: true,
     });
     toast.promise(response, {
@@ -109,7 +109,7 @@ export const logout = createAsyncThunk('/auth/logout', async (loginData) => {
 //update profile
 export const updateAccount = createAsyncThunk('/auth/update', async (userData) => {
   try {
-    const response = axios.post('http://localhost:5030/api/v1/user/update', userData, {
+    const response = axios.post('/api/v1/user/update', userData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -130,7 +130,7 @@ export const updateAccount = createAsyncThunk('/auth/update', async (userData) =
 //get account by id
 export const getUserById = createAsyncThunk('/auth/userbyid', async (id) => {
   try {
-    const response = axios.get('http://localhost:5030/api/v1/user/')
+    const response = axios.get('/api/v1/user/')
   } catch (error) {
 
   }
@@ -143,7 +143,7 @@ export const likeOnPost = createAsyncThunk('/user/likedpost', async (blogId) => 
         position: toast.POSITION.TOP_CENTER
       })
     }
-    const { data } = await axios.post(`http://localhost:5030/api/v1/blog/post/like/${blogId}`, {}, {
+    const { data } = await axios.post(`/api/v1/blog/post/like/${blogId}`, {}, {
       withCredentials: true,
     });
     toast.success(data.message, {
@@ -162,7 +162,7 @@ export const followUser = createAsyncThunk('/user/followuser', async () => {
 export const commentOnPost = createAsyncThunk('/user/commentonpost', async ({blogId,newComment}) => {
   try {
     const { data } = await axios.post(
-      `http://localhost:5030/api/v1/blog/post/comment/${blogId}`,
+      `/api/v1/blog/post/comment/${blogId}`,
       {
         newComment,
       },
@@ -189,8 +189,11 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserData.fulfilled, (state, action) => {
-        state.userData = action.payload
-        state.isLoggedIn = true;
+        if(action.payload){
+          state.userData = action.payload;
+          state.isLoggedIn = true;
+        }
+        
       })
       .addCase(logout.fulfilled, (state, action) => {
         state.userData = null;
@@ -200,7 +203,10 @@ const authSlice = createSlice({
         state.userData = action.payload;
       })
       .addCase(login.fulfilled,(state,action)=>{
-
+         if(action.payload){
+          state.userData = action.payload.user;
+          state.isLoggedIn = true;
+         }
       })
   }
 });

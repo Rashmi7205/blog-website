@@ -229,8 +229,6 @@ const updateUser = async(req,res,next)=>{
                   /// Removing the File From the server
                 fs.rm( `uploads/${req.file.filename}`);
             }
-            console.log("Completed")
-          
           
         }
         

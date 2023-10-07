@@ -4,14 +4,14 @@ import {useNavigate} from 'react-router-dom'
 import UserTabs from "./Profile/UserTabs";
 import { useSelector,useDispatch } from "react-redux";
 import { logout } from "../Redux/Slices/authSlice";
-import Popup from "./Popup";
 import ShareButton from "./ShareButton";
 
 function Profile() {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
-  const userData = useSelector((state)=>state.auth?.userData);
+  const userData = useSelector((state)=>state?.auth?.userData);
+
 
   const handleLogout = async ()=>{
     const isLoggedOut = await dispatch(logout()) ;
@@ -26,7 +26,8 @@ function Profile() {
       {isEditing ? (
         <UpdateProfile />
       ) : (
-        <div className="w-full h-screen relative">
+        <div className="w-full h-[1300px] md:h-screen relative">
+          
           <div className="w-full md:w-[90%] h-1/5 bg-purple-600 rounded-lg mx-auto p-4">
             
             <button 
@@ -89,7 +90,7 @@ function Profile() {
                   className="text-sm border-2 border-purple-600 capitalize font-semibold rounded-md px-3 py-2"
                   onClick={() => setIsEditing(!isEditing)}
                 >
-                  edit
+                  <i className="fa-solid fa-user-pen"></i>edit
                 </button>
                 <button
                   className="text-sm text-white capitalize font-semibold rounded-md px-3 py-2 bg-red-500"

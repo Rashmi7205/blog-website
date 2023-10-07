@@ -108,7 +108,7 @@ function UpdateBlog() {
         <form
         onSubmit={handleFormSubmit}
         encType='multipart/form-data'
-        className='w-4/5 bg-slate-200 flex flex-col items-center justify-around md:py-8 md:px-5  rounded-md shadow-md'
+        className='w-full md:w-4/5 bg-slate-200 flex flex-col items-center justify-around md:py-8 md:px-5  rounded-md shadow-md'
         >
         <h1 className='text-3xl font-semibold text-purple-600'>Update Blog</h1>
         <div className='w-full my-3 flex items-start  flex-col gap-2'>

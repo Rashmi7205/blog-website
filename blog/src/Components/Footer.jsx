@@ -25,8 +25,8 @@ function Footer() {
         <a href="#"  className='text-white'><i className="fab fa-instagram"></i></a>
       </div>
     </div>
-    <div className="footer-bottom">
-      &copy; {new Date().getFullYear()} Company Name. All rights reserved.
+    <div className="footer-bottom text-sm">
+      &copy; {new Date().getFullYear()} justwrite pvt. ltd. . All rights reserved.
     </div>
   </footer>
   )

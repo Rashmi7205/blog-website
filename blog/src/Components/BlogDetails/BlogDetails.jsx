@@ -85,7 +85,6 @@ function BlogDetails() {
       {/* you may Also Like Section End Here */}
       </div>
     : "Loading Blog Details"}
-    <ToastContainer/>
     </>
   );
 }

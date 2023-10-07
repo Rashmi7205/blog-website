@@ -154,7 +154,7 @@ function BlogPostCard({ blog }) {
       <div className="comments w-full h-13 my-2 flex flex-col">
         <h3 className="self-start">Comment on post</h3>
         <div className="w-full flex">
-          <img src={user.profilePic.secure_url} 
+          <img src={user?.profilePic?.secure_url} 
           className="w-[30px] h-[30px] rounded-full"
          alt="" />
           <input

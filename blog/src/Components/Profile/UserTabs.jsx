@@ -1,6 +1,4 @@
 import React from 'react';
-import FollwerTab from './FollwerTab';
-import FollwingTab from './FollowingTab';
 import UserBlogs from './UserBlogs';
 
 

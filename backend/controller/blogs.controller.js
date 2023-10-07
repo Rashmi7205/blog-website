@@ -1,13 +1,12 @@
 import Blogs from "../model/blog.schema.js";
 import AppError from "../utils/apperror.js";
-import mongoose from "mongoose";
 import cloudinary from 'cloudinary';
 import User from '../model/user.schema.js';
+import fs from 'fs/promises';
 
-
-const getBlogs = async (req,res,next)=>{
+const   getBlogs = async (req,res,next)=>{
     try {
-        const blogs = await Blogs.find({}).limit(5);
+        const blogs = await Blogs.find({}).sort({createdAt:-1}).limit(10);
         res.status(200).json({
             succsess:true,
             message:"All Blogs fetched succsessfully",
@@ -81,6 +80,7 @@ const createBlogs = async (req,res,next)=>{
                 blog.image.public_id=result.public_id 
                 blog.image.secure_url =result.secure_url;
             }
+            fs.rm(`uploads/${req.file.filename}`);
         }
 
         // / adding the related posts
@@ -117,6 +117,7 @@ const updateBlogs = async (req,res,next)=>{
             return next(new AppError("Blog does not exist", 400));
         }
     
+
         const updatedBlog = await Blogs.findByIdAndUpdate(id, {
             title,
             description,
@@ -124,14 +125,31 @@ const updateBlogs = async (req,res,next)=>{
             catagory
         }, { new: true }); // Adding { new: true } to get the updated document
     
+        
+           // / Uploading the image file of the blog
+           if(req.file){
+            const result = await cloudinary.v2.uploader.upload(req.file.path,{
+                folder:'blog',
+            });
+            // Updating the urls fro thr image
+            if(result){
+                blog.image.public_id=result.public_id 
+                blog.image.secure_url =result.secure_url;
+            }
+            fs.rm(`uploads/${req.file.filename}`);
+        }
+
+        await blog.save();
+        
         if (!updatedBlog) {
             return next(new AppError("Failed to update", 400));
         }
+
     
         res.status(200).json({
             success: true,
             message: "Blog updated successfully",
-            updatedBlog
+            blog,
         });
     
     } catch (error) {
