@@ -31,9 +31,9 @@ export const getBlogsById = createAsyncThunk('/blog/getblogbyId',async (blogIdLi
     }
 });
 
-export const getAllBlog = createAsyncThunk('/blog/getallblogs',async ()=>{
+export const getAllBlog = createAsyncThunk('/blog/getallblogs',async (pageCount)=>{
     try {
-        const response =  axios.get('/api/v1/blog/getblogs');
+        const response =  axios.post('/api/v1/blog/getblogs',pageCount);
         const data = await response;
         return (data?.data?.blogs);
       } catch (error) {

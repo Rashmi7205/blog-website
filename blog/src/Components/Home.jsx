@@ -1,15 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
-import { UserContext, LoginContext } from "../App.js";
-import axios from "axios";
-import { API_URL } from "./utils/scr.login.js";
+import React from "react";
 import "./css/Home.css";
-import { Link} from "react-router-dom";
-import Blogcard from "./BlogCard/Blogcard.jsx";
 import BlogCardList from "./BlogCard/BlogCardList.jsx";
+import mainimg from './images/img1.png';
 
 function Home() {
-  const usercontext = useContext(UserContext);
-  const loginContext = useContext(LoginContext);
   const catagories = [
     'Technology',
     'Travel',
@@ -52,8 +46,9 @@ function Home() {
              Welcome to JustWrite!
             </h1>
         </div>
-        <div className="image w-1/2 h-4/5">
-        </div>
+        <img src={mainimg} alt="" 
+        className="w-[200px] md:w-[600px] h-auto"
+        />
       </div>
       {/* Headersection end Here */}
 

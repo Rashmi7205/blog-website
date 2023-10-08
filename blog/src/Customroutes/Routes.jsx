@@ -10,12 +10,13 @@ import UpdateProfile from '../Components/Profile/UpdateProfile';
 import CreateBlog from '../Components/CreateBlog/CreateBlog';
 import ErrorPage from '../Components/ErrorPage';
 import UpdateBlog from '../Components/CreateBlog/UpdateBlog';
+import AboutPage from '../Components/AboutPage';
 
 
 function CustomRoutes() {
   return (
     <Routes>
-    <Route exact path='/' element={<Home />} />
+    <Route  path='/' element={<Home />} />
     <Route  path='/signup' element={<Register />}/>
     <Route  path='/login' element={<Login/>}/>
     
@@ -26,9 +27,12 @@ function CustomRoutes() {
     {/* Blog Routes */}
     <Route  path='/blog' element={<Blog />}/>
     <Route  path='/readblog/:id' element={<BlogDetails/>}/>
-    <Route  path='blog/create' element={<CreateBlog/>}/>
+    <Route  path='/blog/create' element={<CreateBlog/>}/>
     <Route path='/blog/updatepost/:blogid' element={<UpdateBlog/>}/>
     
+    {/* Misc */}
+    <Route  path='/about' element={<AboutPage/>}/>
+
     <Route path='*' element={<ErrorPage/>} />
     
   </Routes>

@@ -8,6 +8,8 @@ import { ToastContainer,toast } from 'react-toastify';
 import BlogCardList from '../BlogCard/BlogCardList';
 import { useDispatch } from 'react-redux';
 import { getBlogById } from '../../Redux/Slices/blogSlice';
+import ShareButton from '../ShareButton'
+
 function BlogDetails() {
 
   const {id} = useParams();
@@ -16,6 +18,11 @@ function BlogDetails() {
   const [blogid,setId] = useState(id);
   const [blogDetails,setBlogDetails] = useState(null);
 
+  const handleLike = ()=>{
+    
+  }
+
+  // download all blog 
   const downloadBlogDetails = async ()=>{
       if(!id){
         toast.error("Error in loading the blogs")
@@ -53,9 +60,13 @@ function BlogDetails() {
               {blogDetails.author.totalFollwer}
               </span>
           </h3>
-          <button className='h-10 w-[120px] p-1 font-bold capitalize bg-[#279EFF] text-white rounded-lg'>
-            +Follow
+
+        <div className='bg-white  w-[2/5] flex gap-5 px-3 py-2 rounded-md text-md md:text-2xl '>
+          <button>
+          <i className='fa-solid fa-heart'></i>
           </button>
+         <ShareButton/>
+        </div>
       </div>
       {/* Author Details Section Ends Here */}
 

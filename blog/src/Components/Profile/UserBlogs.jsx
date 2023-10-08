@@ -56,7 +56,9 @@ function UserBlogs() {
           {
             userBlogs.map((ele)=> <li className='h-[40px] bg-white flex items-center justify-between rounded-md shadow-md my-2 cursor-pointer'
             >
-            <p className='capitalize w-[80%] text-center'>
+            <p className='capitalize w-[80%] text-center block'
+            onClick={()=>navigate(`/readblog/${ele.data.blog._id}`)}
+            >
               {ele.data.blog.title}
             </p>
             <div className='flex w-[20%]'>

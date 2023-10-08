@@ -8,7 +8,7 @@ import upload from "../middleware/multer.middleware.js";
 
 const router = Router();
 
-router.get('/getblogs',getBlogs)
+router.post('/getblogs',getBlogs)
         .get('/getblog/:id',getBlogById);
 router.post('/createblog',isLoggedIn,upload.single('image'),createBlogs);
 router.post('/updateblog/:id',isLoggedIn,upload.single('image'),updateBlogs);

@@ -29,15 +29,18 @@ function App() {
   const [isLoggedin, setIsLoggedIn] = useState(useSelector((state)=>state?.auth?.isLoggedin));
   const [userDetails,setUserDetails] = useState(null);
   
+  const fetchData = async()=>{
+    const data = await dispatch(getUserData());
+    if(data?.payload){
+      setUserDetails(data.payload);
+      setIsLoggedIn(true);  
+    }
+   
+  }
+
   const dispatch = useDispatch();
   useEffect(()=>{
 
-    const fetchData = async()=>{
-      const data = await dispatch(getUserData());
-      setUserDetails(data.payload);
-      setIsLoggedIn(true);
-      navigate('/blog');
-    }
     fetchData();
     
   },[])

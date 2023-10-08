@@ -6,7 +6,8 @@ import fs from 'fs/promises';
 
 const   getBlogs = async (req,res,next)=>{
     try {
-        const blogs = await Blogs.find({}).sort({createdAt:-1}).limit(10);
+        const {limit,count} = req.body;
+        const blogs = await Blogs.find({}).sort({createdAt:-1}).skip(count).limit(limit);
         res.status(200).json({
             succsess:true,
             message:"All Blogs fetched succsessfully",
