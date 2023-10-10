@@ -86,7 +86,7 @@ const  Login = () =>{
             {loginBtnText}
            </button>
           <div className='input-fields'>
-          <Link to='/' >Forgot Password?</Link>
+          <Link to='/auth/resetpassword' >Forgot Password?</Link>
           <Link to='/signup' >Sign Up</Link>
           </div>
       </form>

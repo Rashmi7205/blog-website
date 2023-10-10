@@ -11,6 +11,8 @@ import CreateBlog from '../Components/CreateBlog/CreateBlog';
 import ErrorPage from '../Components/ErrorPage';
 import UpdateBlog from '../Components/CreateBlog/UpdateBlog';
 import AboutPage from '../Components/AboutPage';
+import ResetPasswordPage from '../Components/UpdatePassword/ResetPasswordPage';
+import ChangePasswordPage from '../Components/UpdatePassword/ChangePasswordPage';
 
 
 function CustomRoutes() {
@@ -32,6 +34,8 @@ function CustomRoutes() {
     
     {/* Misc */}
     <Route  path='/about' element={<AboutPage/>}/>
+    <Route path='/auth/resetpassword' element={<ResetPasswordPage/>}/>
+    <Route path='/auth/changepassword/:resettoken' element={<ChangePasswordPage/>}/>
 
     <Route path='*' element={<ErrorPage/>} />
     

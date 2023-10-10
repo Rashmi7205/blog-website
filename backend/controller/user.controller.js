@@ -268,39 +268,84 @@ const resetPassword = async(req,res,next)=>{
         await user.save();
 
         const subject = `Password Reset Request for ${email}`;
-        const message = `<!DOCTYPE html>
-        <html>
-        <head>
-            <title>Password Reset Request for [Hello World]</title>
-        </head>
-        <body>
-            <h1>Password Reset Request for [Hello World]</h1>
-            <p>Dear [${user.name}],</p>
-            <p><a href="">[${forgotPasswordToken}]</a><br>
-            <p>We have received a request to reset the password for your account on [Hello World]. If you did not initiate this request, please ignore this email.</p>
-        
-            <p>If you did request a password reset, please follow the instructions below to reset your password:</p>
-        
-            <ol>
-                <li>Click on the following link to go to the password reset page: <a href="[Password Reset Link]">Password Reset Link</a></li>
-                <li>Once on the reset page, enter your new password in the designated field.</li>
-                <li>Re-enter the new password to confirm.</li>
-                <li>Click on the "Reset Password" button to complete the process.</li>
-            </ol>
-        
-            <p>Please note that for security reasons, the password reset link will expire in [expiration time, e.g., 15 minute]. If you do not reset your password within this time frame, you will need to initiate the reset process again.</p>
-        
-            <p>If you encounter any issues or need further assistance, please do not hesitate to contact our support team at <a href="mailto:[Support Email Address]">[Support Email Address]</a> or <a href="tel:[Support Phone Number]">[Support Phone Number]</a>.</p>
-        
-            <p>Thank you for using [Website Name].</p>
-        
-            <p>Best regards,<br>
-            The [Website Name] Team</p>
-        
-          
-            Contact: <a href="mailto:[Contact Email Address]">[Contact Email Address]</a> | Phone: <a href="tel:[Contact Phone Number]">[Contact Phone Number]</a></p>
-        </body>
-        </html>
+            const message = `<!DOCTYPE html>
+            <html>
+            
+            <head>
+                <title>Password Reset Request for password change </title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        padding: 20px;
+                        background-color: #f4f4f4;
+                    }
+            
+                    h1 {
+                        color: #333;
+                    }
+            
+                    p {
+                        line-height: 1.5;
+                        color: #555;
+                    }
+            
+                    a {
+                        padding:5px;
+                        font-weight:bold;
+                        border-radius:15px;
+                        color:#fff;
+                        text-decoration: none;
+                        background-color:purple;
+                        
+                    }
+            
+                    a:hover {
+                        text-decoration: underline;
+                    }
+            
+                    ol {
+                        margin-left: 20px;
+                    }
+            
+                    li {
+                        margin-bottom: 10px;
+                    }
+            
+                    .signature {
+                        margin-top: 20px;
+                        color: #777;
+                    }
+                </style>
+            </head>
+            
+            <body>
+                <h1>Password Reset Request for [Hello World]</h1>
+                <p>Dear ${user.name},</p>
+                <p><a href="${process.env.FRONTEND_URL}/auth/changepassword/${forgotPasswordToken}">Change Password</a><br>
+                <p>We have received a request to reset the password for your account on [Hello World]. If you did not initiate this request, please ignore this email.</p>
+            
+                <p>If you did request a password reset, please follow the instructions below to reset your password:</p>
+            
+                <ol>
+                    <li>Click on the following link to go to the password reset page: 
+                    <br><a href="${process.env.FRONTEND_URL}/auth/changepassword/${forgotPasswordToken}">Password Reset Link</a></li>
+                    <li>Once on the reset page, enter your new password in the designated field.</li>
+                    <li>Re-enter the new password to confirm.</li>
+                    <li>Click on the "Reset Password" button to complete the process.</li>
+                </ol>
+            
+                <p>Please note that for security reasons, the password reset link will expire in [expiration time, e.g., 15 minute]. If you do not reset your password within this time frame, you will need to initiate the reset process again.</p>
+            
+                <p>Thank you for using [].</p>
+            
+                <p class="signature">Best regards,<br>
+                    The justwrite Team</p>
+            
+            </body>
+            
+            </html>
+            
         `
 
         await sendEmail(email,subject,message);

@@ -65,6 +65,7 @@ export const login = createAsyncThunk('/auth/login', async (loginData) => {
     const response = axios.post('/api/v1/user/login', loginData, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
+      credentials:'include'
     });
 
     toast.promise(response, {
@@ -132,7 +133,56 @@ export const getUserById = createAsyncThunk('/auth/userbyid', async (id) => {
   try {
     const response = axios.get('/api/v1/user/')
   } catch (error) {
+  }
+});
 
+// forgot password 
+export const resetPassword = createAsyncThunk('/user/resetpassword',async (email)=>{
+    try {
+        const response = axios.post('/api/v1/user/reset/password',{email},{
+          headers:{'Content-Type':'application/json'},
+          withCredentials:true,
+        });
+        toast.promise(response,{
+          success:`You recieved an Email to  reset password in ${email}`,
+          pending:'Wait authentication in process...',
+          error:"Failed to sent email"
+        },{
+          position:toast.POSITION.TOP_CENTER
+        });
+
+        const {data} = await response; 
+        return data;
+    } catch (error) {
+        toast.error(error.message);
+    }
+});
+
+//change password
+export const changePassword = createAsyncThunk('/user/changepassword',async ({
+  newPassword,
+  resettoken
+})=>{
+  try {
+    const response = axios.post(`/api/v1/user/reset/password/${resettoken}`,{
+      newPassword
+    });
+    toast.promise({
+      success:"Successfully password updated",
+      pending:"Wait authentication in process...",
+      error:"failed to change password"
+    },{
+      position:toast.POSITION.TOP_CENTER
+    });
+
+    const {data} = await response;
+
+    return data;
+
+  } catch (error) {
+      toast.error(error.message,{
+        position:toast.POSITION.TOP_CENTER
+      });
   }
 });
 
