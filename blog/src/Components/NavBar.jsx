@@ -1,5 +1,5 @@
 import React,{useState,useContext} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/NavBar.css";
 import { LoginContext,UserContext } from "../App";
 import UserLogout from "./utils/UserLogout";
@@ -7,6 +7,9 @@ import logo from '../Components/images/logo-no-background.png'
 import { useSelector } from "react-redux";
 
 function NavBar() {
+
+  const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isLoggedin = useSelector((state)=>(state.auth?.isLoggedIn));
   const userData = useSelector((state)=>state?.auth?.userData);  
@@ -16,15 +19,18 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar z-50">
+    <nav className="navbar z-50 text-sm font-semibold">
     <div className="text-[#793FDF] text-4xl font-bold tracking-wide">
       <img src={logo} alt="logo" 
-      className="w-[120px] h-auto"
+      className="w-[120px] h-auto block"
+      onClick={()=>navigate('/')}
       />
     </div>
-    <ul className="menu-item">
+    <ul className="w-3/5 md:flex justify-between hidden">
         <li><Link to="/" className="link">Home</Link></li>
         <li><Link to="/blog" className="link">Blogs</Link></li>
+        <li><Link to="/contact" className="link">Contact</Link></li>
+        <li><Link to="/about" className="link">About us</Link></li>
         <li>
           {
              !isLoggedin
@@ -63,6 +69,8 @@ function NavBar() {
         </li>
       <li><Link to="/" className="link"  onClick={toggleMenu}>Home</Link></li>
         <li><Link to="/blog" className="link"  onClick={toggleMenu}>Blogs</Link></li>
+        <li><Link to="/contact" className="link">Contact</Link></li>
+        <li><Link to="/about" className="link">About us</Link></li>
         <li>
           {
              isLoggedin

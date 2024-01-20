@@ -6,7 +6,9 @@ const initialState = {
   userData: null,
   isLoggedIn: false
 }
-
+// axios.defaults.baseURL='https://deploy-v1-backend.onrender.com';
+axios.defaults.baseURL='http://localhost:5030';
+axios.defaults.withCredentials=true;
 // getting the user data if the user is logged in 
 export const getUserData = createAsyncThunk('/auth/getuserdata', async () => {
   try {
@@ -23,10 +25,7 @@ export const getUserData = createAsyncThunk('/auth/getuserdata', async () => {
     }
     return user;
   } catch (error) {
-    toast.info(error.message, {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
-    });
+    console.log(error)
   }
 });
 
@@ -34,8 +33,8 @@ export const getUserData = createAsyncThunk('/auth/getuserdata', async () => {
 export const register = createAsyncThunk('/auth/register', async (registerData) => {
   try {
     const response = axios.post('/api/v1/user/register', registerData, {
-      headers: { 'Content-Type': 'multipart/formdata' },
       withCredentials: true,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     toast.promise(response, {
@@ -63,8 +62,9 @@ export const register = createAsyncThunk('/auth/register', async (registerData) 
 export const login = createAsyncThunk('/auth/login', async (loginData) => {
   try {
     const response = axios.post('/api/v1/user/login', loginData, {
-      headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
+      headers: { 'Content-Type': 'application/json' },
+    
       credentials:'include'
     });
 

@@ -15,7 +15,7 @@ function CreateBlog() {
         title:"",
         description:"",
         content:"",
-        catagory:"",
+        category:"",
         image:null,
     });
 
@@ -69,7 +69,7 @@ function CreateBlog() {
                     title:"",
                     description:"",
                     content:"",
-                    catagory:"",
+                    category:"",
                     image:null,
                 }
             );
@@ -153,16 +153,16 @@ function CreateBlog() {
        />
         </div>
         <div className='w-full my-3  flex items-start  flex-col gap-2'>
-        <label htmlFor="catagory"
+        <label htmlFor="category"
             className='text-xl font-semibold text-purple-600 cursor-pointer'
             >
-                catagory
+                category
             </label>
             <input type="text" 
             className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
-            id='catagory'
-            name='catagory'
-            value={blogData.catagory}
+            id='category'
+            name='category'
+            value={blogData.category}
             onChange={handleInputChange}
             />
         </div>

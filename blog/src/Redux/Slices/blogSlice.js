@@ -10,6 +10,7 @@ const initialState = {
 export const getBlogById = createAsyncThunk('/blog/blogbyid',async (id)=>{
     try {
         const response =await axios.get(`/api/v1/blog/getblog/${id}`);
+       
         return response.data;
 } catch (error) {
     toast.info(error.message,{
@@ -21,8 +22,8 @@ export const getBlogById = createAsyncThunk('/blog/blogbyid',async (id)=>{
 
 export const getBlogsById = createAsyncThunk('/blog/getblogbyId',async (blogIdList)=>{
     try {
-            const response = blogIdList.map(async (id)=> await axios.get(`/api/v1/blog/getblog/${id}`));
-            return await axios.all(response);
+            const response = await axios.get(`/api/v1/blog/getmyblogs`);
+            return await response.data;
     } catch (error) {
         toast.info(error.message,{
             position:toast.POSITION.TOP_LEFT,
@@ -48,10 +49,10 @@ export const createPost = createAsyncThunk('/blog/create',async (blogData)=>{
         try {
             const response =  axios.post('/api/v1/blog/createblog',blogData,
             {
+                withCredentials:true,
                 headers:{
                     'Content-Type': 'multipart/form-data',
                 },
-                withCredentials:true,
             }
             );
 
@@ -74,10 +75,10 @@ export const updatePost = createAsyncThunk('/blog/create',async ({blogid,blogDat
         console.log(blogid,blogData);
         const response =  axios.post(`/api/v1/blog/updateblog/${blogid}`,blogData,
         {
+            withCredentials:true,
             headers:{
                 'Content-Type': 'multipart/form-data',
             },
-            withCredentials:true,
         }
         );
 
@@ -116,7 +117,7 @@ export const deletePost = createAsyncThunk('/blog/delete',async (blogId)=>{
 });
 
 export const readPost = createAsyncThunk('/blog/readPost',async ()=>{
-
+    
 });
 
 

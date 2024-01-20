@@ -30,15 +30,5 @@ body{
   flex-direction: row;  
 }
 .btn{
-  height: 40px;
-  border: none;
-  background-color: #001C30;
-  color: #fff;
-  font-size: 1.1em;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-.btn:hover{
-  color: #001C30;
-  background-color: #fff;
+  @apply md:px-3 md:py-2 md:h-[40px] border-none bg-[#fff] text-black font-bold capitalize px-2 py-1 text-sm
 }

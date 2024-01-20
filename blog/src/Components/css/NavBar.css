@@ -1,14 +1,20 @@
-/* Reset some default styles */
-body, ul {
+/* Reset some default styles */ ul {
     margin: 0;
     padding: 0;
   }
   
   .link{
-    text-decoration: none;
+    /* text-decoration: none;
     color: #000;
     font-weight: 600;
-    display: block;
+    display: block; */
+    @apply text-[#000000] font-semibold block no-underline
+  }
+  nav li{
+    @apply px-3 py-1
+  }
+  nav li:hover{
+    @apply transition-all duration-300 border-2 border-slate-400  rounded-lg
   }
  .nav-profile-img{
   width: 30px;
@@ -104,11 +110,5 @@ body, ul {
       align-items: center;
       justify-content: space-around;
     }
-  }
-  li:hover{
-    padding:8px;
-    border-radius: 15px;
-    background-color: #ffffff73;
-    color: black;
   }
   

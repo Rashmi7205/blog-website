@@ -17,10 +17,12 @@ function BlogDetails() {
 
   const [blogid,setId] = useState(id);
   const [blogDetails,setBlogDetails] = useState(null);
+  console.log(blogDetails);
 
   const handleLike = ()=>{
     
   }
+  console.log(blogDetails);
 
   // download all blog 
   const downloadBlogDetails = async ()=>{
@@ -43,15 +45,16 @@ function BlogDetails() {
       <div className="w-full md:w-1/2 m-auto flex flex-col items-start justify-around">
       {/* Blog image Section */}
       <div className='w-full h-74'>
-          <img src={blogDetails.image.secure_url} alt="image" 
-          className='w-full h-full rounded-xl'
+          <img src={blogDetails?.image?.secure_url || 
+          "#"} alt="image" 
+          className='w-full h-[260px] rounded-xl object-cover'
           />
       </div>
     {/* Blog image Section ends Here */}
     
     {/* Author Details Section */}
       <div className='w-full h-2 m-5 flex items-start justify-start'>
-          <img src={blogDetails.author.profilePic.secure_url} alt=""
+          <img src={blogDetails.author.profilePic} alt=""
           className='w-[50px] h-[50px] rounded-full'
           />
           <h3 className='text-black font-bold text-lg capitalize'>
@@ -87,12 +90,7 @@ function BlogDetails() {
       </div>
       {/* Main Content Section Ens Here */}
      
-     
-      {/* You may Also Like section */}
-      <h1 className='w-full text-center text-3xl text-purple-600 font-bold underline my-3'>You May also Like</h1>
-      <div className='w-full flex flex-wrap'>
-          <BlogCardList/>
-      </div>
+          
       {/* you may Also Like Section End Here */}
       </div>
     : "Loading Blog Details"}

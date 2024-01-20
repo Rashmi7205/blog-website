@@ -21,6 +21,7 @@ function UserBlogs() {
       const response = await  dispatch(getBlogsById(userData?.blogs));
       if(response?.payload){
       setUserBlog(response?.payload);
+       
       }
   }
 
@@ -46,6 +47,7 @@ function UserBlogs() {
     if(isConfirm && deleteBlogId){
       deleteBlog();    
     }
+
   },[deleteBlogId,isConfirm]);
   
 
@@ -54,22 +56,22 @@ function UserBlogs() {
         <h1 className='font-bold text-3xl '>My Blogs</h1>
         <ul className='w-[90%] overflow-x-hidden overflow-y-auto'>
           {
-            userBlogs.map((ele)=> <li className='h-[40px] bg-white flex items-center justify-between rounded-md shadow-md my-2 cursor-pointer'
+            userBlogs && userBlogs?.blogs?.map((ele)=> <li className='h-[40px] bg-white flex items-center justify-between rounded-md shadow-md my-2 cursor-pointer'
             >
             <p className='capitalize w-[80%] text-center block'
-            onClick={()=>navigate(`/readblog/${ele.data.blog._id}`)}
+            onClick={()=>navigate(`/readblog/${ele._id}`)}
             >
-              {ele.data.blog.title}
+              {ele.title}
             </p>
             <div className='flex w-[20%]'>
               <button 
-              onClick={()=>navigate(`/blog/updatepost/${ele.data.blog._id}`)}
+              onClick={()=>navigate(`/blog/updatepost/${ele._id}`)}
               className='bg-slate-500 px-2 py-1 rounded-md text-white font-semibold'>
                <i className="fa-solid fa-pen-to-square"></i>
               </button>
               <button
                className='bg-red-500 px-2 py-1 rounded-md text-white font-semibold'
-               onClick={()=>handleDeleteConfirmation(ele.data.blog._id)}
+               onClick={()=>handleDeleteConfirmation(ele._id)}
               >
                 <i className="fa-solid fa-trash"></i>
               </button>

@@ -16,7 +16,7 @@ function UpdateBlog() {
         title:"",
         description:"",
         content:"",
-        catagory:"",
+        category:"",
         image:null,
     });
 
@@ -31,9 +31,9 @@ function UpdateBlog() {
                 title:data.payload.blog.title,
                 description:data.payload.blog.description,
                 content:data.payload.blog.content,
-                catagory:data.payload.blog.catagory,
+                category:data.payload.blog.category,
             });
-            setImagePreview(data.payload.blog.image.secure_url);
+            setImagePreview(data.payload.blog.image?.secure_url);
         }
     }
 
@@ -89,7 +89,7 @@ function UpdateBlog() {
                     title:"",
                     description:"",
                     content:"",
-                    catagory:"",
+                    category:"",
                     image:null,
                 }
             );
@@ -101,6 +101,7 @@ function UpdateBlog() {
 
     useEffect(()=>{
         getCurrentBlog();
+        console.log(blogData)
     },[]);
 
     return (
@@ -179,16 +180,16 @@ function UpdateBlog() {
        />
         </div>
         <div className='w-full my-3  flex items-start  flex-col gap-2'>
-        <label htmlFor="catagory"
+        <label htmlFor="category"
             className='text-xl font-semibold text-purple-600 cursor-pointer'
             >
-                catagory
+                category
             </label>
             <input type="text" 
             className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
-            id='catagory'
-            name='catagory'
-            value={blogData.catagory}
+            id='category'
+            name='category'
+            value={blogData.category}
             onChange={handleInputChange}
             />
         </div>

@@ -1,17 +1,16 @@
-import React from 'react'
 import { useEffect, useState } from "react"
-import axios from "axios";
-import {ToastContainer,toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import Blogcard from "./Blogcard";
 import Loader from '../utils/Loader';
+import Button from '../Button';
 
 import { useDispatch } from 'react-redux';
 import { getAllBlog } from '../../Redux/Slices/blogSlice';
-
+import {useNavigate} from 'react-router-dom';
 
 function BlogCardList() {
+
+    const navigate = useNavigate();
 
     const [blogList,setBlogList] = useState([]);
 
@@ -29,12 +28,21 @@ function BlogCardList() {
 
   return (
     <>
-        <h1 className="text-black text-4xl font-bold capitalize text-left m-4 ">Recent Posts</h1>
+        <div className='w-full flex items-center justify-between'>
+        <h1 className="text-black md:text-4xl  font-bold capitalize text-left m-4 ">Recent Posts</h1>
+          <Button text={"View More"} onclick={()=>{
+            navigate('/blog')
+          }}/>
+        </div>
+       
+        <div className='w-full flex flex-wrap gap-2 '>
         {
-            blogList.length
+            blogList?.length
             ?blogList.map((blog)=><Blogcard data={blog}/>)
             :<Loader/>
         }
+        </div>
+        
     </>
   )
 }

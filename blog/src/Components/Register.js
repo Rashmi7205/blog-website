@@ -6,16 +6,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { LoginContext,UserContext } from '../App';
 import { Link,useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { register } from '../Redux/Slices/authSlice';
 
 
 function Register(){
   
   const [signUpData,setSignUpData] = useState({username:null,email:null,password:""}); 
   const navigate = useNavigate();
+  const dispatch=useDispatch();
 
   const handleRegister = async(e)=>{
-    e.preventDefault();
-    try {
+        e.preventDefault();
         const {username,email,password} = signUpData;
 
         if(!username||!email||!password){
@@ -31,18 +33,12 @@ function Register(){
           password:signUpData.password,
         }
 
-        const {data} = await axios.post('http://localhost:5030/api/v1/user/register',
-        payload,{
-          headers:{'Content-Type':'application/json'},
-          withCredentials:true
-        });
+        const data = await dispatch(register(payload));
+        
+        if(data.payload){
+          navigate('/blog');
+        }
 
-    } catch (error) {
-      toast.error(error.message,{
-        autoClose:3000,
-        position:toast.POSITION.TOP_CENTER
-      });
-    }
   }
 
 

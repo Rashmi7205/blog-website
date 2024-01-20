@@ -12,8 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { commentOnPost, likeOnPost } from "../../Redux/Slices/authSlice";
 
 function BlogPostCard({ blog }) {
+
   const [isOpen, setIsOpen] = useState(false);
-  const [blogData, setBlogData] = useState(blog);
+  const [blogData, setBlogData] = useState({
+    ...blog,
+    updatedAt:new Date(blog?.updatedAt).toString().split(" "),
+  });
   const [newComment, setNewComment] = useState("");
   const [isFollwing, setISFollwing] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -24,13 +28,8 @@ function BlogPostCard({ blog }) {
   const toggleDiv = () => {
     setIsOpen(!isOpen);
   };
-
   const handleLike = async () => {
-    const data = await dispatch(likeOnPost(blogData._id));
-    if(data.payload){
-      setBlogData(data.payload?.blog);
-      setIsLiked(!isLiked);
-    }
+    
   };
 
   const handleComment = async () => {
@@ -82,19 +81,14 @@ function BlogPostCard({ blog }) {
   }
 
   useEffect(() => {
-    if (  
-      user&&
-      blogData.likedBy.indexOf(user._id) != -1
-    ) {
-      setIsLiked(!isLiked);
-    }
+
   }, [blogData]);
 
   return (
     <div className=" bg-[#e6ebeb] m-3 p-3 overflow-hidden rounded-2xl shadow-md  md:w-1/2   md:m-4 w-full ">
       <div className="header w-full h-12 flex items-center justify-start md:h-16">
         <img
-          src={blogData.author.profilePic.secure_url}
+          src={blogData?.author?.profilePic}
           alt=""
           className="w-[50px] h-full rounded-full md:w-[65px]"
         />
@@ -106,7 +100,7 @@ function BlogPostCard({ blog }) {
           </span>
           </h3>
           <h4 className="text-[14px] my-2  text-gray-800 ">
-            { new Date(blogData.updatedAt).toLocaleDateString()} . Updated
+            {`${blogData?.updatedAt[0]}.  ${blogData?.updatedAt[1]}.  ${blogData?.updatedAt[3]}` } . (Updated)
           </h4>
 
         </div>
@@ -117,10 +111,10 @@ function BlogPostCard({ blog }) {
           {isFollwing ? "✅Follwing" : "+Follow"}
         </button> */}
       </div>
-      <div className="title w-full text-justify h-1/5 md:p-3 md:text-lg  text-sm font-bold p-2">
+      <div className="title w-full text-justify h-1/5 md:p-3 md:text-lg  text-sm font-bold p-2 capitalize">
         {blogData.title}
       </div>
-      <div className="title w-full text-justify h-1/5 overflow-hidden text-[16px] my-3">
+      <div className="title w-full text-justify h-1/5 overflow-hidden text-[12px] my-1">
         {parse(Dompurify.sanitize(blogData.content.slice(0, 100)))}
         <Link to={`/readblog/${blogData._id}`}>
           <button className="font-semibold">
@@ -129,9 +123,9 @@ function BlogPostCard({ blog }) {
         </Link>
       </div>
       <div className="w-full text-justify h-1/5 overflow-hidden text-sm my-3">
-        <img src={blogData.image.secure_url} 
+        <img src={blogData?.image?.secure_url || "#"} 
         alt="blog thumbail" 
-        className="h-[200px] w-full rounded-md md:h-[270px]"
+        className="h-[200px] w-full rounded-md md:h-[270px] object-cover"
         />
       </div>
       <div className="title w-full text-justify flex ">
@@ -151,8 +145,9 @@ function BlogPostCard({ blog }) {
         </button>
          <ShareButton title={blogData.title} url={window.location.href}/>   
       </div>
+      {/* Comment section */}
       <div className="comments w-full h-13 my-2 flex flex-col">
-        <h3 className="self-start">Comment on post</h3>
+        <h3 className="self-start text-sm">Comment on post</h3>
         <div className="w-full flex">
           <img src={user?.profilePic?.secure_url} 
           className="w-[30px] h-[30px] rounded-full"
@@ -162,7 +157,7 @@ function BlogPostCard({ blog }) {
             placeholder="Add a comment"
             onChange={(e) => setNewComment(e.target.value)}
             id="comment"
-            className="w-3/5 md:w-4/5 md:h-8 h-[30px] border-none outline-none my-2 rounded-lg"
+            className="w-3/5 md:w-4/5 md:h-8 h-[30px] border-none outline-none my-2 rounded-lg text-[12px]"
           />
           <button
             onClick={handleComment}
