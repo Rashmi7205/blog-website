@@ -85,7 +85,7 @@ function BlogPostCard({ blog }) {
   }, [blogData]);
 
   return (
-    <div className=" bg-[#e6ebeb] m-3 p-3 overflow-hidden rounded-2xl shadow-md  md:w-1/2   md:m-4 w-full ">
+    <div className=" bg-[#e6ebeb] my-2 p-3 overflow-hidden rounded-2xl shadow-md  md:w-2/5   md:m-2 w-full ">
       <div className="header w-full h-12 flex items-center justify-start md:h-16">
         <img
           src={blogData?.author?.profilePic}
@@ -104,12 +104,6 @@ function BlogPostCard({ blog }) {
           </h4>
 
         </div>
-        {/* <button
-          className="h-10 w-[120px] p-1 font-bold capitalize bg-[#279EFF] text-white rounded-lg"
-          onClick={followUser}
-        >
-          {isFollwing ? "✅Follwing" : "+Follow"}
-        </button> */}
       </div>
       <div className="title w-full text-justify h-1/5 md:p-3 md:text-lg  text-sm font-bold p-2 capitalize">
         {blogData.title}
@@ -128,7 +122,7 @@ function BlogPostCard({ blog }) {
         className="h-[200px] w-full rounded-md md:h-[270px] object-cover"
         />
       </div>
-      <div className="title w-full text-justify flex ">
+      <div className="title w-full text-justify flex items-center justify-around ">
         <button onClick={handleLike} className="text-lg tracking-wider">
           <i
             className={
@@ -148,7 +142,7 @@ function BlogPostCard({ blog }) {
       {/* Comment section */}
       <div className="comments w-full h-13 my-2 flex flex-col">
         <h3 className="self-start text-sm">Comment on post</h3>
-        <div className="w-full flex">
+        <div className="w-full flex items-center justify-around">
           <img src={user?.profilePic?.secure_url} 
           className="w-[30px] h-[30px] rounded-full"
          alt="" />

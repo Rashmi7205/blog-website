@@ -1,6 +1,6 @@
 import React from 'react'
-import BlogpostList from './BlogPosts/BlogpostList'
-import Pagination from './Pagination'
+import BlogpostList from '../Components/BlogPosts/BlogpostList'
+import Pagination from '../Components/Pagination'
 
 function Blog() {
   return (

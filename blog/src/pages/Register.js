@@ -1,10 +1,8 @@
-import React, {useContext, useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import './css/login.css'
-import imageurl from './images/1.png';
+import imageurl from '../Components/images/1.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { LoginContext,UserContext } from '../App';
 import { Link,useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../Redux/Slices/authSlice';

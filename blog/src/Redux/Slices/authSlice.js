@@ -6,8 +6,8 @@ const initialState = {
   userData: null,
   isLoggedIn: false
 }
-// axios.defaults.baseURL='https://deploy-v1-backend.onrender.com';
-axios.defaults.baseURL='http://localhost:5030';
+axios.defaults.baseURL='https://deploy-v1-backend.onrender.com';
+// axios.defaults.baseURL='http://localhost:5030';
 axios.defaults.withCredentials=true;
 // getting the user data if the user is logged in 
 export const getUserData = createAsyncThunk('/auth/getuserdata', async () => {

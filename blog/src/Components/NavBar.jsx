@@ -26,7 +26,7 @@ function NavBar() {
       onClick={()=>navigate('/')}
       />
     </div>
-    <ul className="w-3/5 md:flex justify-between hidden">
+    <ul className="w-3/5 md:flex items-center justify-between hidden">
         <li><Link to="/" className="link">Home</Link></li>
         <li><Link to="/blog" className="link">Blogs</Link></li>
         <li><Link to="/contact" className="link">Contact</Link></li>
@@ -41,7 +41,7 @@ function NavBar() {
         <li>
           {
             isLoggedin
-            ?<Link to="/profile" className="w-44 flex capitalize bg-sky-600 p-2 rounded-lg text-white font-bold text-xl">
+            ?<Link to="/profile" className="w-44 flex items-center justify-around capitalize bg-sky-600 p-2 rounded-lg text-white font-bold text-xl no-underline">
               <img className='nav-profile-img' src={userData?.profilePic?.secure_url}/>
               {
                userData?.name

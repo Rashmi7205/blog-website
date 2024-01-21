@@ -56,14 +56,14 @@ function UserBlogs() {
         <h1 className='font-bold text-3xl '>My Blogs</h1>
         <ul className='w-[90%] overflow-x-hidden overflow-y-auto'>
           {
-            userBlogs && userBlogs?.blogs?.map((ele)=> <li className='h-[40px] bg-white flex items-center justify-between rounded-md shadow-md my-2 cursor-pointer'
+            userBlogs && userBlogs?.blogs?.map((ele)=> <li className='h-[40px] bg-white flex items-center justify-between rounded-md shadow-md my-2 cursor-pointer text-[10px] md:text-sm'
             >
             <p className='capitalize w-[80%] text-center block'
             onClick={()=>navigate(`/readblog/${ele._id}`)}
             >
               {ele.title}
             </p>
-            <div className='flex w-[20%]'>
+            <div className='flex items-center justify-around w-[20%]'>
               <button 
               onClick={()=>navigate(`/blog/updatepost/${ele._id}`)}
               className='bg-slate-500 px-2 py-1 rounded-md text-white font-semibold'>
@@ -86,7 +86,7 @@ function UserBlogs() {
           <div className="bg-white p-6 rounded w-[90%] md:w-[400px] ">
               <p className='text-sm md:text-md'>Are sure sure . To delete this post .
               <span className='text-red-500'>This action is irreversible</span></p>
-              <div className='w-full flex py-3'>
+              <div className='w-full flex items-center justify-around py-3'>
               <button onClick={()=>{
                 setPopupOpen(false);
                 setISConfirm(true);

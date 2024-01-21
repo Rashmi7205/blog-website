@@ -1,18 +1,19 @@
 import React from 'react';
 import {Route,Routes} from 'react-router-dom';
-import Home from '../Components/Home';
-import Blog from '../Components/Blog';
-import Register from '../Components/Register';
-import Login from '../Components/Login';
-import Profile from '../Components/Profile';
+
+import Home from '../pages/Home';
+import Register from '../pages/Register';
+import Login from '../pages/Login';
+import Profile from '../pages/Profile';
 import BlogDetails from '../Components/BlogDetails/BlogDetails';
 import UpdateProfile from '../Components/Profile/UpdateProfile';
 import CreateBlog from '../Components/CreateBlog/CreateBlog';
-import ErrorPage from '../Components/ErrorPage';
+import ErrorPage from '../pages/ErrorPage';
 import UpdateBlog from '../Components/CreateBlog/UpdateBlog';
-import AboutPage from '../Components/AboutPage';
+import AboutPage from '../pages/AboutPage';
 import ResetPasswordPage from '../Components/UpdatePassword/ResetPasswordPage';
 import ChangePasswordPage from '../Components/UpdatePassword/ChangePasswordPage';
+import Blog from '../pages/Blog';
 
 
 function CustomRoutes() {

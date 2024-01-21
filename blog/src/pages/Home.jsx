@@ -1,7 +1,7 @@
 import React from "react";
-import "./css/Home.css";
-import BlogCardList from "./BlogCard/BlogCardList.jsx";
-import mainimg from './images/img1.png';
+import "../css/Home.css";
+import BlogCardList from "../Components/BlogCard/BlogCardList.jsx";
+import mainimg from '../Components/images/img1.png';
 
 function Home() {
   const catagories = [
@@ -30,7 +30,7 @@ function Home() {
   return (
     <>
     {/* Header Section Starts here */}
-      <div className="w-full h-[90vh] flex md:flex-row flex-col">
+      <div className="w-full h-[90vh] flex items-center justify-around md:flex-row flex-col">
       <div className=" w-1/2 h-4/5 text-2xl md:text-5xl flex flex-col items-center justify-around">
             <h1 className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3"><q>Dive into a World of Knowledge and Inspiration!</q></h1>
             <h1 className="w-full h-2/5 text-left font-bold capitalize tracking-wider text-[#dd874e] pl-10 m-2">

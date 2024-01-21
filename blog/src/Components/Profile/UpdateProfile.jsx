@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Profile from "../Profile";
+import Profile from "../../pages/Profile";
 import {useDispatch, useSelector} from 'react-redux';
 import UserTabs from "./UserTabs";
 import { useNavigate } from "react-router-dom";

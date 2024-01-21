@@ -44,12 +44,16 @@ function BlogpostList() {
         downLoadBlogs();
     },[pageCount]);
   return (
-    <div className='w-full flex col items-start justify-around'>
+    <>
+    <h1 className='text-center w-full my-8 font-bold text-3xl'>Trending Posts</h1>
+    <div className='w-full flex flex-wrap items-start justify-center'>
         {
           blogPosts.length?blogPosts.map((blog)=><BlogPostCard key={blog._id} blog={blog} />)
           :"Loading Blogs ..."
         }
-        {blogPosts.length && <div>
+        
+    </div>
+    {blogPosts.length && <div>
         <div className='w-full flex gap-4'>
         <button 
         className='px-4  py-2 bg-white text-black font-bold capitalize shadow-lg rounded-md  ' 
@@ -58,8 +62,8 @@ function BlogpostList() {
         className='px-4  py-2 bg-white text-black font-bold capitalize shadow-lg rounded-md '
         onClick={handleNextPageChange}>next</button>
       </div>
-        </div>}
-    </div>
+    </div>}
+    </>
   )
 }
 
