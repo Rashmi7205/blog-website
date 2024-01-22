@@ -19,7 +19,7 @@ function CreateBlog() {
         image:null,
     });
 
-    const [imagePreview,setImagePreview] = useState("https://th.bing.com/th/id/OIP.sedusKw9sYxEJgRvUsgmCAHaE8?w=288&h=192&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+    const [imagePreview,setImagePreview] = useState("https://w7.pngwing.com/pngs/531/481/png-transparent-gallery-photo-upload-photo-image-facebook-ui-colored-icon-thumbnail.png");
 
 
 
@@ -79,21 +79,21 @@ function CreateBlog() {
 
     };
     return (
-    <div className='w-full  my-6 flex z-30'>
+    <div className='w-full  my-6 flex items-center justify-around z-30'>
         <form
         onSubmit={handleFormSubmit}
         encType='multipart/form-data'
-        className='md:w-4/5 bg-slate-200 flex flex-col items-center justify-around py-8 md:px-5  rounded-md shadow-md'
+        className='md:w-4/5 bg-slate-200 flex    flex-col items-center justify-around py-8 md:px-5  rounded-md shadow-md'
         >
-        <h1 className='text-3xl font-semibold text-purple-600'>Crate a new Blog </h1>
-        <div className='w-full my-3 flex items-start  flex-col gap-2'>
+        <h1 className='text-3xl font-semibold text-purple-600'>Create a new Blog </h1>
+        <div className='w-full my-3 flex items-center  flex-col gap-2'>
             <img src={imagePreview} 
             alt="your_image"
             className='w-[4/5] rounded-md h-[400px]'
             />
             <h1 className='text-xl font-semibold text-purple-600 cursor-pointer'>Add image</h1>
             <label htmlFor="image"
-            className='text-2xl text-purple-700 bg-white w-[70px] h-[70px] flex rounded-full'
+            className='text-2xl text-purple-700 bg-white w-[70px] h-[70px] flex items-center justify-center rounded-full'
             >
                 <i className="fa-regular fa-image"></i>
             </label>

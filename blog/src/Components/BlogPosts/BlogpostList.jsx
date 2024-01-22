@@ -10,7 +10,7 @@ function BlogpostList() {
     const [blogPosts,setBlogPosts] = useState([]);
     const [pageCount,setPageCount] = useState({
       limit:5,
-      count:0,
+      skip:0,
     })
     const dispatch = useDispatch();
     const downLoadBlogs = async ()=>{
@@ -20,21 +20,21 @@ function BlogpostList() {
 
       //Handle page change
   const handleNextPageChange = ()=>{
-      const count = pageCount.count + pageCount.limit;    
+      const skip = pageCount.skip + pageCount.limit;    
       setPageCount({
             ...pageCount,
-            count
+            skip
           });
         console.log(pageCount);
     }
     const handlePrevPageChange = ()=>{
-      if(pageCount.count === 0){
+      if(pageCount.skip === 0){
         return;
       }
-      const count = pageCount.count - pageCount.limit;    
+      const skip = pageCount.skip - pageCount.limit;    
       setPageCount({
             ...pageCount,
-            count
+            skip
           });
         console.log(pageCount);
     }
@@ -48,12 +48,12 @@ function BlogpostList() {
     <h1 className='text-center w-full my-8 font-bold text-3xl'>Trending Posts</h1>
     <div className='w-full flex flex-wrap items-start justify-center'>
         {
-          blogPosts.length?blogPosts.map((blog)=><BlogPostCard key={blog._id} blog={blog} />)
+          blogPosts?.length?blogPosts.map((blog)=><BlogPostCard key={blog._id} blog={blog} />)
           :"Loading Blogs ..."
         }
         
     </div>
-    {blogPosts.length && <div>
+    {blogPosts?.length && <div>
         <div className='w-full flex gap-4'>
         <button 
         className='px-4  py-2 bg-white text-black font-bold capitalize shadow-lg rounded-md  ' 

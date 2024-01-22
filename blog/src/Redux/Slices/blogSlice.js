@@ -96,7 +96,7 @@ export const updatePost = createAsyncThunk('/blog/create',async ({blogid,blogDat
     }
 });
 
-export const deletePost = createAsyncThunk('/blog/delete',async (blogId)=>{
+export const deletePost = createAsyncThunk('/blog/delete',async (blogId)=>{   
     try {
         const response = axios.delete(`/api/v1/blog/deleteblog/${blogId}`,{
             withCredentials:true,
@@ -107,7 +107,7 @@ export const deletePost = createAsyncThunk('/blog/delete',async (blogId)=>{
             error:"Failed to delete Blog",
             success:"Successfully blog deleted"
         });
-
+        
         const {data} = await response;
 
         return {...data,blogId};
@@ -130,8 +130,8 @@ const blogSlice = createSlice({
         .addCase(getAllBlog.fulfilled,(state,action)=>{
             state.blogs = action.payload;
         })
-        .addCase(deletePost.fulfilled, (state, action) => {
-            state.blogs = state?.blogs?.filter((blog) => action.payload.blogId !== String(blog._id));
+        .addCase(deletePost.fulfilled,(state,action)=>{
+           
         })
         .addCase(createPost.fulfilled,(state,action)=>{
             if(action.payload){

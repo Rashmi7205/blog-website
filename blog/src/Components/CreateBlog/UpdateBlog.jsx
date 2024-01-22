@@ -37,7 +37,7 @@ function UpdateBlog() {
         }
     }
 
-    const [imagePreview,setImagePreview] = useState("https://th.bing.com/th/id/OIP.sedusKw9sYxEJgRvUsgmCAHaE8?w=288&h=192&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+    const [imagePreview,setImagePreview] = useState("https://w7.pngwing.com/pngs/531/481/png-transparent-gallery-photo-upload-photo-image-facebook-ui-colored-icon-thumbnail.png");
 
 
 
@@ -105,21 +105,21 @@ function UpdateBlog() {
     },[]);
 
     return (
-    <div className='w-full my-6 flex'>
+    <div className='w-full my-6 flex items-center justify-around'>
         <form
         onSubmit={handleFormSubmit}
         encType='multipart/form-data'
         className='w-full md:w-4/5 bg-slate-200 flex flex-col items-center justify-around md:py-8 md:px-5  rounded-md shadow-md'
         >
         <h1 className='text-3xl font-semibold text-purple-600'>Update Blog</h1>
-        <div className='w-full my-3 flex items-start  flex-col gap-2'>
+        <div className='w-full my-3 flex items-center justify-around  flex-col gap-2'>
             <img src={imagePreview} 
             alt="your_image"
             className='w-[4/5] rounded-md h-[400px]'
             />
             <h1 className='text-xl font-semibold text-purple-600 cursor-pointer'>Add image</h1>
             <label htmlFor="image"
-            className='text-2xl text-purple-700 bg-white w-[70px] h-[70px] flex rounded-full'
+            className='text-2xl text-purple-700 bg-white w-[70px] h-[70px] flex items-center justify-around rounded-full'
             >
                 <i className="fa-regular fa-image"></i>
             </label>
@@ -138,7 +138,7 @@ function UpdateBlog() {
                 Title
             </label>
             <input type="text" 
-            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
+            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize px-3'
             id='title'
             name='title'
             value={blogData.title}
@@ -152,7 +152,7 @@ function UpdateBlog() {
                 description
             </label>
             <input type="text" 
-            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
+            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize px-3' 
             id='description'
             name='description'
             value={blogData.description}
@@ -186,7 +186,7 @@ function UpdateBlog() {
                 category
             </label>
             <input type="text" 
-            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize'
+            className='w-full h-[30px] rounded-md border-none outline-none text-md font-semibold capitalize px-3'
             id='category'
             name='category'
             value={blogData.category}

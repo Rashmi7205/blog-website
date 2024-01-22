@@ -2,13 +2,12 @@ import { useState,useEffect } from 'react';
 import DOMpurify from 'dompurify';
 import parse from 'html-react-parser'
 import React from 'react';
-import {Link,useNavigate,useParams} from 'react-router-dom';
-import { ToastContainer,toast } from 'react-toastify';
-
-import BlogCardList from '../BlogCard/BlogCardList';
+import {useParams} from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { getBlogById } from '../../Redux/Slices/blogSlice';
 import ShareButton from '../ShareButton'
+import CommentList from '../Comments/CommentList';
 
 function BlogDetails() {
 
@@ -22,7 +21,6 @@ function BlogDetails() {
   const handleLike = ()=>{
     
   }
-  console.log(blogDetails);
 
   // download all blog 
   const downloadBlogDetails = async ()=>{
@@ -53,14 +51,14 @@ function BlogDetails() {
     {/* Blog image Section ends Here */}
     
     {/* Author Details Section */}
-      <div className='w-full h-2 m-5 flex items-start justify-start'>
-          <img src={blogDetails.author.profilePic} alt=""
+      <div className='w-full my-5 flex items-center  justify-around'>
+          <img src={blogDetails?.author?.profilePic} alt=""
           className='w-[50px] h-[50px] rounded-full'
           />
           <h3 className='text-black font-bold text-lg capitalize'>
-              {blogDetails.author.name}
+              {blogDetails?.author?.name}
               <span className='m-4 text-sm text-[grey]'>
-              {blogDetails.author.totalFollwer}
+              {blogDetails?.author?.totalFollwer}
               </span>
           </h3>
 
@@ -88,8 +86,11 @@ function BlogDetails() {
            }
         </p>
       </div>
-      {/* Main Content Section Ens Here */}
-     
+      <div>
+           <CommentList currentBlogId={blogDetails._id} comments={blogDetails?.comments}/>
+      </div>
+      {/* Main Content Section Ends Here */}
+      
           
       {/* you may Also Like Section End Here */}
       </div>

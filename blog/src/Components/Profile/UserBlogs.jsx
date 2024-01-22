@@ -35,7 +35,7 @@ function UserBlogs() {
     const data = await  dispatch(deletePost(deleteBlogId));
     if(data.payload)
     {
-        setUserBlog(userBlogs.filter((ele)=>ele.data.blog._id !== deleteBlogId))
+        setUserBlog(data.payload)
     }
     setISConfirm(!isConfirm);
     setDeleBlogId(null);

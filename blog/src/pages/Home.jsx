@@ -2,6 +2,9 @@ import React from "react";
 import "../css/Home.css";
 import BlogCardList from "../Components/BlogCard/BlogCardList.jsx";
 import mainimg from '../Components/images/img1.png';
+import FeatureCardList from "../Components/FeaureCard/FeatureCardList.jsx";
+import FaqList from "../Components/Faqs/FaqList.jsx";
+
 
 function Home() {
   const catagories = [
@@ -30,16 +33,16 @@ function Home() {
   return (
     <>
     {/* Header Section Starts here */}
-      <div className="w-full h-[90vh] flex items-center justify-around md:flex-row flex-col">
+      <div className="w-full h-[90vh] flex items-center justify-around md:flex-row flex-col overflow-hidden">
       <div className=" w-1/2 h-4/5 text-2xl md:text-5xl flex flex-col items-center justify-around">
-            <h1 className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3"><q>Dive into a World of Knowledge and Inspiration!</q></h1>
-            <h1 className="w-full h-2/5 text-left font-bold capitalize tracking-wider text-[#dd874e] pl-10 m-2">
+            <h1 data-aos="fade-left" data-aos-duration="2000" className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3 "><q>Dive into a World of Knowledge and Inspiration!</q></h1>
+            <h1 data-aos="fade-right" className="w-full h-2/5 text-left font-bold capitalize tracking-wider text-[#dd874e] pl-10 m-2">
             Explore.
             </h1>
-            <h1 className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3">
+            <h1 data-aos="fade-left" className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3">
              Learn. 
             </h1>
-            <h1 className="w-full  text-right font-bold capitalize tracking-wider text-[#76f568] p-3 ">
+            <h1 data-aos="fade-right" className="w-full  text-right font-bold capitalize tracking-wider text-[#76f568] p-3 ">
              Engage.
             </h1>
             <h1 className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3 my-6">
@@ -55,14 +58,14 @@ function Home() {
       {/* Hero section Starts Here */}
       <div className="w-[100%] md:p-10 flex col items-center justify-around">
           {/* Catagory Section Goes Here */}
-          <div className="w-inherit hidden md:block">
+          <div className="w-inherit hidden md:block my-10">
             <h1 
             className="text-black text-4xl font-bold capitalize text-center m-4"
             >Explore our Catagory</h1>
-            <div className="w-[100%] flex row justify-around items-center">
+            <div className="slideshow gap-3">
                 {
                   catagories.map((catagory,ind)=><h2 key={ind} 
-                  className="text-white w-36  bg-slate-600 p-3 block m-2 cursor-pointer text-center font-semibold  rounded-lg">
+                  className="whitespace-nowrap rounded-md bg-purple-700 px-5 py-2 text-sm text-red-100">
                     {catagory}
                   </h2>)
                 }
@@ -71,11 +74,17 @@ function Home() {
           {/* Catagory section ends here */}
 
           {/* Blog Card Section start Here  */}
-          <div className="w-[100%] flex row flex-wrap items-center justify-around m-5">
+          <div className="w-[100%] flex row flex-wrap items-center justify-around md:my-10 m-5">
                <BlogCardList/>
           </div>
           {/* Blog Card section Ends Here */}
-                
+           {/* Features sections */}
+           <FeatureCardList/>
+           {/* feature section ends here */}
+                <FaqList/>
+            {/* faqs section starts here */}
+            {/*faqs ends here  */}
+
       </div>
       {/* Hero section ends Here */}
     </>

@@ -1,8 +1,6 @@
-import React,{useState,useContext} from "react";
+import React,{useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./css/NavBar.css";
-import { LoginContext,UserContext } from "../App";
-import UserLogout from "./utils/UserLogout";
+import "../css/NavBar.css";
 import logo from '../Components/images/logo-no-background.png'
 import { useSelector } from "react-redux";
 
@@ -34,7 +32,7 @@ function NavBar() {
         <li>
           {
              !isLoggedin
-             ?<Link to="/login" className="link">Login</Link>
+             ?<Link to="/login" className="no-underline inline-flex items-center gap-2 rounded border border-indigo-600 px-8 py-3 text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500">Login</Link>
              :""
             }
         </li>
@@ -47,7 +45,7 @@ function NavBar() {
                userData?.name
               }
             </Link>
-            : <Link to="/signup" className="link text-white bg-slate-700 p-3 rounded-lg">Sign Up</Link>
+            : <Link to="/signup" className="inline-flex items-center gap-2 rounded border border-indigo-600 bg-indigo-600 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500 no-underline">Sign Up</Link>
           }
          
         </li>

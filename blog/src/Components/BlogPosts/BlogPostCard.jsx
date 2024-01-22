@@ -131,7 +131,7 @@ function BlogPostCard({ blog }) {
                 : "fa-solid fa-thumbs-up"
             }
           ></i>
-          {blogData.likedBy.length - 1}
+          {blogData.likedBy.length}
         </button>
         <button className="tracking-wider">
           <i className="fa-regular fa-message"></i>

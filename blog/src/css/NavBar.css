@@ -10,11 +10,11 @@
     display: block; */
     @apply text-[#000000] font-semibold block no-underline
   }
-  nav li{
+  nav .link{
     @apply px-3 py-1
   }
-  nav li:hover{
-    @apply transition-all duration-300 border-2 border-slate-400  rounded-lg
+  nav .link:hover{
+    @apply transition-all duration-100 border-2 border-slate-400  rounded-lg
   }
  .nav-profile-img{
   width: 30px;

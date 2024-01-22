@@ -1,5 +1,5 @@
 import React, {useState } from 'react'
-import './css/login.css'
+import '../css/login.css'
 import imageurl from '../Components/images/1.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

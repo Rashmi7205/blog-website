@@ -1,5 +1,7 @@
 import React, { useState ,useEffect} from 'react';
 import './App.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import {useNavigate } from "react-router-dom";
 
@@ -31,7 +33,8 @@ function App() {
 
   const dispatch = useDispatch();
   useEffect(()=>{
-
+    AOS.init();
+    AOS.refresh();
     fetchData();
     
   },[])
