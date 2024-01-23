@@ -51,7 +51,6 @@ function BlogPostCard({ blog }) {
      }
       const data = await dispatch(commentOnPost(commnetData));
       if(data.payload){
-        console.log(data.payload);
         setBlogData(data.payload?.blog);
       setIsOpen(true);
       }

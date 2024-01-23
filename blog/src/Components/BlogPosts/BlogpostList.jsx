@@ -9,7 +9,7 @@ import Pagination from '../Pagination';
 function BlogpostList() {
     const [blogPosts,setBlogPosts] = useState([]);
     const [pageCount,setPageCount] = useState({
-      limit:5,
+      limit:6,
       skip:0,
     })
     const dispatch = useDispatch();
@@ -44,7 +44,7 @@ function BlogpostList() {
         downLoadBlogs();
     },[pageCount]);
   return (
-    <>
+    <div className='w-full max-h-max bg-[#DDDDDD]'>
     <h1 className='text-center w-full my-8 font-bold text-3xl'>Trending Posts</h1>
     <div className='w-full flex flex-wrap items-start justify-center'>
         {
@@ -54,7 +54,7 @@ function BlogpostList() {
         
     </div>
     {blogPosts?.length && <div>
-        <div className='w-full flex gap-4'>
+        <div className='w-full flex gap-4 items-center justify-center my-4'>
         <button 
         className='px-4  py-2 bg-white text-black font-bold capitalize shadow-lg rounded-md  ' 
         onClick={handlePrevPageChange}>prev</button>
@@ -63,7 +63,7 @@ function BlogpostList() {
         onClick={handleNextPageChange}>next</button>
       </div>
     </div>}
-    </>
+    </div>
   )
 }
 

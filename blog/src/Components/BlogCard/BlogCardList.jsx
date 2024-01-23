@@ -38,7 +38,7 @@ function BlogCardList() {
         <div className='w-full flex flex-wrap gap-2 '>
         {
             blogList?.length
-            ?blogList.map((blog)=><Blogcard data={blog}/>)
+            ?blogList.map((blog)=><Blogcard data={blog} onclick={()=>navigate(`readblog/${blog._id}`)}/>)
             :<Loader/>
         }
         </div>

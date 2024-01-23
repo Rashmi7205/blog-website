@@ -13,7 +13,7 @@ function AboutPage() {
           </p>
         </div>
         <h1 className='text-4xl font-bold '>Why Choose Us ?</h1>
-        <div className='w-full md:w-2/3 my-5 flex items-center justify-around md:flex-row flex-col h-[950px] md:h-auto'>
+        <div className='w-full md:w-2/3 my-5 flex items-center justify-around md:flex-row flex-col h-[950px] md:h-[350px]'>
             <div className='w-[200px] h-[150px]'>
                   <h1 className='my-3 text-5xl  py-2 px-3 font-bold text-[#2BB79D]
                   border-l-8 border-l-[#2BB79D]

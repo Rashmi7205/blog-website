@@ -2,21 +2,49 @@ import { useState,useEffect } from 'react';
 import DOMpurify from 'dompurify';
 import parse from 'html-react-parser'
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBlogById } from '../../Redux/Slices/blogSlice';
 import ShareButton from '../ShareButton'
 import CommentList from '../Comments/CommentList';
+import RelatedPostList from '../RelatedPost/RelatedPostList';
+import { VscSend } from "react-icons/vsc";
+import { commentOnPost } from '../../Redux/Slices/authSlice';
 
 function BlogDetails() {
 
   const {id} = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state)=>state?.auth?.userData);
 
   const [blogid,setId] = useState(id);
   const [blogDetails,setBlogDetails] = useState(null);
-  console.log(blogDetails);
+
+  const [newComment,setNewComment] = useState("");
+
+  const handleComment  = ()=>{
+      if (!user) {
+        navigate("/login");
+      }
+      if(newComment === ""){
+        toast.info("Empty Comment cannot be added",{
+          position:toast.POSITION.TOP_RIGHT
+        });
+        return;
+      }
+      const commentObj = {
+        blogId:blogid,
+        newComment
+      }
+       const data =  dispatch(commentOnPost({blogid,newComment}))
+  }
+
+  const handleIdChange = (id)=>{
+      setId(id);
+  }
 
   const handleLike = ()=>{
     
@@ -24,10 +52,11 @@ function BlogDetails() {
 
   // download all blog 
   const downloadBlogDetails = async ()=>{
-      if(!id){
+      if(!blogid){
         toast.error("Error in loading the blogs")
         return;
       }
+      const id = blogid;
       const response = await dispatch(getBlogById(id));
       if(response?.payload){
         setBlogDetails(response?.payload?.blog);
@@ -40,7 +69,8 @@ function BlogDetails() {
   return (
     <>
       {blogDetails?
-      <div className="w-full md:w-1/2 m-auto flex flex-col items-start justify-around">
+      <div className='w-full flex items-start justify-around md:flex-row flex-col '>
+         <div className="w-full md:w-3/5 flex flex-col items-start justify-around">
       {/* Blog image Section */}
       <div className='w-full h-74'>
           <img src={blogDetails?.image?.secure_url || 
@@ -86,6 +116,16 @@ function BlogDetails() {
            }
         </p>
       </div>
+      <div className='w-full bg-purple-500 flex items-center justify-center py-8 my-4 rounded-lg gap-2'>
+          <input type="text"
+          className='outline-none w-2/5 px-2 py-2 rounded-xl'
+          placeholder='Comment on post '
+          onChange={(e)=>setNewComment(e.target.value)}
+          />
+          <button className='btn'
+          onClick={handleComment}
+          ><VscSend/></button>
+      </div>
       <div>
            <CommentList currentBlogId={blogDetails._id} comments={blogDetails?.comments}/>
       </div>
@@ -94,6 +134,11 @@ function BlogDetails() {
           
       {/* you may Also Like Section End Here */}
       </div>
+      <div className='md:w-1/5 w-full'>
+        <RelatedPostList id={blogid} setid={handleIdChange}/>
+      </div>
+      </div>
+     
     : "Loading Blog Details"}
     </>
   );

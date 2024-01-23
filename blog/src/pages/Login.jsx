@@ -49,7 +49,7 @@ const  Login = () =>{
    
    return (
     <>
-    <div className='login-page'>
+    <div className='login-page '>
     <div className='login-page-image'>
      <img src="https://img.freepik.com/free-vector/digital-nomad-concept-illustration_114360-1082.jpg?size=626&ext=jpg&uid=R111820993&semt=ais" alt='image' />:
       </div>

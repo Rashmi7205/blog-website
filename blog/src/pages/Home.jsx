@@ -33,19 +33,19 @@ function Home() {
   return (
     <>
     {/* Header Section Starts here */}
-      <div className="w-full h-[90vh] flex items-center justify-around md:flex-row flex-col overflow-hidden">
+      <div className="w-full h-[90vh] flex items-center justify-around md:flex-row flex-col overflow-hidden bg-home-back bg-no-repeat object-fill bg-center">
       <div className=" w-1/2 h-4/5 text-2xl md:text-5xl flex flex-col items-center justify-around">
-            <h1 data-aos="fade-left" data-aos-duration="2000" className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3 "><q>Dive into a World of Knowledge and Inspiration!</q></h1>
+            <h1 data-aos="fade-left" data-aos-duration="2000" className="w-full  text-center font-bold capitalize tracking-wider text-[#fff] p-3 "><q>Dive into a World of Knowledge and Inspiration!</q></h1>
             <h1 data-aos="fade-right" className="w-full h-2/5 text-left font-bold capitalize tracking-wider text-[#dd874e] pl-10 m-2">
             Explore.
             </h1>
-            <h1 data-aos="fade-left" className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3">
+            <h1 data-aos="fade-left" className="w-full  text-center font-bold capitalize tracking-wider text-[#fff] p-3">
              Learn. 
             </h1>
             <h1 data-aos="fade-right" className="w-full  text-right font-bold capitalize tracking-wider text-[#76f568] p-3 ">
              Engage.
             </h1>
-            <h1 className="w-full  text-center font-bold capitalize tracking-wider text-[#793FDF] p-3 my-6">
+            <h1 className="w-full  text-center font-bold capitalize tracking-wider text-[#fff] p-3 my-6">
              Welcome to JustWrite!
             </h1>
         </div>
